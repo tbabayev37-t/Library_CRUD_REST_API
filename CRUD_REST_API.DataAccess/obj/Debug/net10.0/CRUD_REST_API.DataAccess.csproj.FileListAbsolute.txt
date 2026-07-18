@@ -1,0 +1,17 @@
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\bin\Debug\net10.0\CRUD_REST_API.DataAccess.deps.json
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\bin\Debug\net10.0\CRUD_REST_API.DataAccess.dll
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\bin\Debug\net10.0\CRUD_REST_API.DataAccess.pdb
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\bin\Debug\net10.0\CRUD_REST_API.Core.dll
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\bin\Debug\net10.0\CRUD_REST_API.Core.pdb
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_RES.BD874CBD.Up2Date
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.dll
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\refint\CRUD_REST_API.DataAccess.dll
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.pdb
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\ref\CRUD_REST_API.DataAccess.dll
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\bin\Debug\net10.0\CRUD_REST_API.DataAccess.runtimeconfig.json
+C:\Users\Lenovo\source\repos\CRUD_REST_API.DataAccess\obj\Debug\net10.0\CRUD_REST_API.DataAccess.genruntimeconfig.cache
