@@ -8,6 +8,7 @@ using CRUD_REST_API.DataAccess.Repositories.Abstractions;
 using CRUD_REST_API.DataAccess.Repositories.Implementations;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Business.Services.Implementations;
+using CRUD_REST_API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,7 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Library Management API v1");
     c.RoutePrefix = "swagger";
 });
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

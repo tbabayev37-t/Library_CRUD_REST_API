@@ -24,15 +24,8 @@ namespace CRUD_REST_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            try
-            {
                 var member = await _memberService.GetByIdAsync(id);
                 return Ok(member);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }
         }
         [HttpPost]
         public async Task<IActionResult> Create(MemberCreateDto dto)
@@ -44,29 +37,14 @@ namespace CRUD_REST_API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] MemberUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
-
-            try
-            {
                 await _memberService.UpdateAsync(dto); 
                 return Ok(new { message = "Uzv ugurla yenilendi!" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
                 await _memberService.DeleteAsync(id);
                 return Ok("Uzv silindi");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new {message = ex.Message });
-            }
         }
     }
 }

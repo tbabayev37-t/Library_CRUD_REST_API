@@ -24,15 +24,8 @@ namespace CRUD_REST_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult>GetById(int id)
         {
-            try
-            {
                 var author = await _authorService.GetByIdAsync(id);
-                return Ok(author);
-            }
-            catch (Exception ex)
-            {
-                return NotFound(ex.Message);
-            }             
+                return Ok(author);           
         }
         [HttpPost]
         public async Task<IActionResult>Create(AuthorCreateDto dto)
@@ -43,28 +36,16 @@ namespace CRUD_REST_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult>Delete(int id)
         {
-            try
-            {
                 await _authorService.DeleteAsync(id);
                 return NoContent();
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
         }
-        [HttpPut]
-        public async Task<IActionResult>Update(AuthorUpdateDto dto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] AuthorUpdateDto dto)
         {
-            try
-            {
-                await _authorService.UpdateAsync(dto);
-                return NoContent();  //204
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message); //400
-            }
+            if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
+            await _authorService.UpdateAsync(dto);
+            return NoContent();  // 204
         }
     }
 }

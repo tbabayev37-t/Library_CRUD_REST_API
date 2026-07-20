@@ -30,41 +30,21 @@ namespace CRUD_REST_API.Controllers
         [HttpPost]
         public async Task<IActionResult>CreateBook(BookCreateDto dto)
         {
-            try
-            {
                 await _bookService.CreateAsync(dto);
                 return StatusCode(StatusCodes.Status201Created);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
         }
-        [HttpPut]
-        public async Task<IActionResult>Update(BookUpdateDto dto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
         {
-            try
-            {
-                await _bookService.UpdateAsync(dto);
-                return NoContent(); //204
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message); //400
-            }
+            if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
+            await _bookService.UpdateAsync(dto);
+            return NoContent(); // 204
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult>Delete(int id)
         {
-            try
-            {
                 await _bookService.DeleteAsync(id);
                 return NoContent();//204 No Content
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message); //400 Bad Request
-            }
             
         }
     }
