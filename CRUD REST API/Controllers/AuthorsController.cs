@@ -40,12 +40,12 @@ namespace CRUD_REST_API.Controllers
             await _authorService.CreateAsync(dto);
             return Ok(dto);
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult>Delete(int id)
         {
             try
             {
-                await _authorService.GetByIdAsync(id);
+                await _authorService.DeleteAsync(id);
                 return NoContent();
             }
             catch(Exception ex)

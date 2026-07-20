@@ -42,7 +42,6 @@ namespace CRUD_REST_API.Business.Services.Implementations
             var authors = await _authorRepository.GetAllAuthorsWithBooksAsync();
             return _mapper.Map<IEnumerable<AuhtorGetDto>>(authors);
         }
-
         public async Task<AuhtorGetDto> GetByIdAsync(int id)
         {
             var FindingAuthor = await _authorRepository.GetByIdAsync(id);
