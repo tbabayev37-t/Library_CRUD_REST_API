@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CRUD_REST_API.Business.DTOs.BookDto;
+using CRUD_REST_API.Business.DTOs.QueryDto;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Contexts;
 using CRUD_REST_API.DataAccess.Repositories.Abstractions;
@@ -44,13 +45,17 @@ namespace CRUD_REST_API.Business.Services.Implementations
             await _bookRepository.SaveAsync();
         }
 
-        public async Task<IEnumerable<BookGetDto>> GetAllAsync()
+        public async Task<IEnumerable<BookGetDto>> GetAllAsync(BookQueryParameters queryParams)
         {
-            //var books = await _bookRepository.GetAllAsync();
-            var books = await _bookRepository.GetAllBooksWithAuthorsAsync();
+            var books = await _bookRepository.GetAllBooksWithAuthorsAsync(
+        queryParams.PageNumber,
+        queryParams.PageSize,
+        queryParams.SortBy,
+        queryParams.IsDescending
+         );
+
             return _mapper.Map<IEnumerable<BookGetDto>>(books);
         }
-
         public async Task<BookGetDto> GetByIdAsync(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);

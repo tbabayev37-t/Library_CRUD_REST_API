@@ -1,4 +1,5 @@
 ﻿using CRUD_REST_API.Business.DTOs.BookDto;
+using CRUD_REST_API.Business.DTOs.QueryDto;
 using CRUD_REST_API.Business.Services.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@ namespace CRUD_REST_API.Controllers
             _bookService = bookService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] BookQueryParameters queryParams)
         {
-            var books = await _bookService.GetAllAsync();
-            return Ok(books);//200 Ok
+            var books = await _bookService.GetAllAsync(queryParams);
+            return Ok(books);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult>GetById(int id)

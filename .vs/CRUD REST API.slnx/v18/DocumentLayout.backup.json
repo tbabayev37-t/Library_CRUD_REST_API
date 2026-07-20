@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4F42630E-24A6-5109-655D-9774B1C6D679}|CRUD REST API\\CRUD REST API.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud rest api\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F42630E-24A6-5109-655D-9774B1C6D679}|CRUD REST API\\CRUD REST API.csproj|solutionrelative:crud rest api\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud_rest_api.business\\services\\implementations\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|solutionrelative:crud_rest_api.business\\services\\implementations\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F42630E-24A6-5109-655D-9774B1C6D679}|CRUD REST API\\CRUD REST API.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud rest api\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4F42630E-24A6-5109-655D-9774B1C6D679}|CRUD REST API\\CRUD REST API.csproj|solutionrelative:crud rest api\\controllers\\bookscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud_rest_api.business\\services\\abstractions\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|solutionrelative:crud_rest_api.business\\services\\abstractions\\ibookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2BAF0A3-394A-9B56-393F-F3FF34419096}|CRUD_REST_API.DataAccess\\CRUD_REST_API.DataAccess.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud_rest_api.dataaccess\\repositories\\abstractions\\ibookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2BAF0A3-394A-9B56-393F-F3FF34419096}|CRUD_REST_API.DataAccess\\CRUD_REST_API.DataAccess.csproj|solutionrelative:crud_rest_api.dataaccess\\repositories\\abstractions\\ibookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2BAF0A3-394A-9B56-393F-F3FF34419096}|CRUD_REST_API.DataAccess\\CRUD_REST_API.DataAccess.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud_rest_api.dataaccess\\repositories\\implementations\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2BAF0A3-394A-9B56-393F-F3FF34419096}|CRUD_REST_API.DataAccess\\CRUD_REST_API.DataAccess.csproj|solutionrelative:crud_rest_api.dataaccess\\repositories\\implementations\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud_rest_api.business\\dtos\\querydto\\bookqueryparameters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|solutionrelative:crud_rest_api.business\\dtos\\querydto\\bookqueryparameters.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F42630E-24A6-5109-655D-9774B1C6D679}|CRUD REST API\\CRUD REST API.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud rest api\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F42630E-24A6-5109-655D-9774B1C6D679}|CRUD REST API\\CRUD REST API.csproj|solutionrelative:crud rest api\\middlewares\\globalexceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F42630E-24A6-5109-655D-9774B1C6D679}|CRUD REST API\\CRUD REST API.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud rest api\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,10 +59,6 @@
       "RelativeMoniker": "D:0:0:{F2BAF0A3-394A-9B56-393F-F3FF34419096}|CRUD_REST_API.DataAccess\\CRUD_REST_API.DataAccess.csproj|solutionrelative:crud_rest_api.dataaccess\\repositories\\abstractions\\iauthorrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud_rest_api.business\\services\\implementations\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|solutionrelative:crud_rest_api.business\\services\\implementations\\bookservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|c:\\users\\lenovo\\source\\repos\\librarymanagment_rest_api\\crud_rest_api.business\\profiles\\memberprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0376EE36-CFE0-EF64-9D17-C70D109049AF}|CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj|solutionrelative:crud_rest_api.business\\profiles\\memberprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -62,36 +78,80 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 13,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IBookService.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\Services\\Abstractions\\IBookService.cs",
+              "RelativeDocumentMoniker": "CRUD_REST_API.Business\\Services\\Abstractions\\IBookService.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\Services\\Abstractions\\IBookService.cs",
+              "RelativeToolTip": "CRUD_REST_API.Business\\Services\\Abstractions\\IBookService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-20T18:10:40.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.DataAccess\\Repositories\\Implementations\\BookRepository.cs",
+              "RelativeDocumentMoniker": "CRUD_REST_API.DataAccess\\Repositories\\Implementations\\BookRepository.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.DataAccess\\Repositories\\Implementations\\BookRepository.cs",
+              "RelativeToolTip": "CRUD_REST_API.DataAccess\\Repositories\\Implementations\\BookRepository.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwCEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-20T18:05:24.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IBookRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.DataAccess\\Repositories\\Abstractions\\IBookRepository.cs",
+              "RelativeDocumentMoniker": "CRUD_REST_API.DataAccess\\Repositories\\Abstractions\\IBookRepository.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.DataAccess\\Repositories\\Abstractions\\IBookRepository.cs",
+              "RelativeToolTip": "CRUD_REST_API.DataAccess\\Repositories\\Abstractions\\IBookRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAB9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-20T18:04:52.4Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
+              "Title": "BookQueryParameters.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\DTOs\\QueryDto\\BookQueryParameters.cs",
+              "RelativeDocumentMoniker": "CRUD_REST_API.Business\\DTOs\\QueryDto\\BookQueryParameters.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\DTOs\\QueryDto\\BookQueryParameters.cs",
+              "RelativeToolTip": "CRUD_REST_API.Business\\DTOs\\QueryDto\\BookQueryParameters.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-20T18:02:52.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "GlobalExceptionMiddleware.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\Middlewares\\GlobalExceptionMiddleware.cs",
               "RelativeDocumentMoniker": "CRUD REST API\\Middlewares\\GlobalExceptionMiddleware.cs",
               "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\Middlewares\\GlobalExceptionMiddleware.cs",
               "RelativeToolTip": "CRUD REST API\\Middlewares\\GlobalExceptionMiddleware.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBYAAABBAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAzwBYAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-20T13:36:01.538Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "MembersController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\Controllers\\MembersController.cs",
               "RelativeDocumentMoniker": "CRUD REST API\\Controllers\\MembersController.cs",
@@ -99,12 +159,11 @@
               "RelativeToolTip": "CRUD REST API\\Controllers\\MembersController.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAAACYAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-20T11:37:32.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-20T11:37:32.466Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "AuthorsController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\Controllers\\AuthorsController.cs",
               "RelativeDocumentMoniker": "CRUD REST API\\Controllers\\AuthorsController.cs",
@@ -112,12 +171,11 @@
               "RelativeToolTip": "CRUD REST API\\Controllers\\AuthorsController.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAxwC0AAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-18T17:39:57.434Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-18T17:39:57.434Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "AuthorService.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\Services\\Implementations\\AuthorService.cs",
               "RelativeDocumentMoniker": "CRUD_REST_API.Business\\Services\\Implementations\\AuthorService.cs",
@@ -129,7 +187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "IAuthorRepository.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.DataAccess\\Repositories\\Abstractions\\IAuthorRepository.cs",
               "RelativeDocumentMoniker": "CRUD_REST_API.DataAccess\\Repositories\\Abstractions\\IAuthorRepository.cs",
@@ -141,7 +199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "AuthorRepository.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.DataAccess\\Repositories\\Implementations\\AuthorRepository.cs",
               "RelativeDocumentMoniker": "CRUD_REST_API.DataAccess\\Repositories\\Implementations\\AuthorRepository.cs",
@@ -153,7 +211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "MemberProfile.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\Profiles\\MemberProfile.cs",
               "RelativeDocumentMoniker": "CRUD_REST_API.Business\\Profiles\\MemberProfile.cs",
@@ -171,26 +229,27 @@
               "RelativeDocumentMoniker": "CRUD REST API\\Controllers\\BooksController.cs",
               "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\Controllers\\BooksController.cs",
               "RelativeToolTip": "CRUD REST API\\Controllers\\BooksController.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA8wBUAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-18T19:33:43.744Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
               "Title": "BookService.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\Services\\Implementations\\BookService.cs",
               "RelativeDocumentMoniker": "CRUD_REST_API.Business\\Services\\Implementations\\BookService.cs",
               "ToolTip": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\Services\\Implementations\\BookService.cs",
               "RelativeToolTip": "CRUD_REST_API.Business\\Services\\Implementations\\BookService.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwDEAAABMAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAADkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-18T19:24:03.458Z"
+              "WhenOpened": "2026-07-18T19:24:03.458Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "CRUD REST API.csproj",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\CRUD REST API.csproj",
               "RelativeDocumentMoniker": "CRUD REST API\\CRUD REST API.csproj",
@@ -198,12 +257,11 @@
               "RelativeToolTip": "CRUD REST API\\CRUD REST API.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-07-18T18:15:12.941Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-18T18:15:12.941Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "CRUD REST API",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\CRUD REST API.csproj",
               "RelativeDocumentMoniker": "CRUD REST API\\CRUD REST API.csproj",
@@ -214,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\Program.cs",
               "RelativeDocumentMoniker": "CRUD REST API\\Program.cs",
@@ -222,12 +280,11 @@
               "RelativeToolTip": "CRUD REST API\\Program.cs",
               "ViewState": "AgIAACQAAAAAAAAAAAAAADAAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-18T18:13:43.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-18T18:13:43.181Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD REST API\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "CRUD REST API\\Properties\\launchSettings.json",
@@ -236,6 +293,14 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-07-18T18:04:04.411Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }
