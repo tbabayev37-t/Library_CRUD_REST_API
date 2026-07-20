@@ -1,14 +1,15 @@
-using CRUD_REST_API.Business.Profiles;
-using CRUD_REST_API.Contexts;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using CRUD_REST_API.DataAccess.Repositories.Abstractions.Generic;
-using CRUD_REST_API.DataAccess.Repositories.Implementations.Generic;
-using CRUD_REST_API.DataAccess.Repositories.Abstractions;
-using CRUD_REST_API.DataAccess.Repositories.Implementations;
+using CRUD_REST_API.Business.Profiles;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Business.Services.Implementations;
+using CRUD_REST_API.Contexts;
+using CRUD_REST_API.DataAccess.Repositories.Abstractions;
+using CRUD_REST_API.DataAccess.Repositories.Abstractions.Generic;
+using CRUD_REST_API.DataAccess.Repositories.Implementations;
+using CRUD_REST_API.DataAccess.Repositories.Implementations.Generic;
 using CRUD_REST_API.Middlewares;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,13 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 builder.Services.AddAutoMapper(cfg =>
 {

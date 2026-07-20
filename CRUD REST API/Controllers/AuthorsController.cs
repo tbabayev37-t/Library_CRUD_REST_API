@@ -15,24 +15,30 @@ namespace CRUD_REST_API.Controllers
         {
             _authorService = authorService;
         }
+        /// <summary>
+        /// Butun muelliflerin siyahisini gosterir.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var authors = await _authorService.GetAllAsync();
             return Ok(authors);
         }
+        /// <summary> ID-e gore tek bir muellifi getirir. </summary>
         [HttpGet("{id}")]
         public async Task<IActionResult>GetById(int id)
         {
                 var author = await _authorService.GetByIdAsync(id);
                 return Ok(author);           
         }
+        /// <summary> Yeni muellif yaradir. </summary>
         [HttpPost]
         public async Task<IActionResult>Create(AuthorCreateDto dto)
         {
             await _authorService.CreateAsync(dto);
             return Ok(dto);
         }
+        /// <summary> ID-e gore muellifi silir. </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult>Delete(int id)
         {
@@ -40,6 +46,7 @@ namespace CRUD_REST_API.Controllers
                 return NoContent();
 
         }
+        /// <summary> Movcud muellif melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] AuthorUpdateDto dto)
         {
