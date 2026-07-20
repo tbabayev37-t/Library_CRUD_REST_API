@@ -14,7 +14,6 @@ namespace CRUD_REST_API.Business.Profiles
             CreateMap<Member, MemberGetDto>().ReverseMap();
             CreateMap<Member, MemberUpdateDto>().ReverseMap();
             CreateMap<Member, MemberCreateDto>().ReverseMap();
-
         }
     }
 }

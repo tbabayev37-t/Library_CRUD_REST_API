@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CRUD REST API",
+    "\\CRUD REST API\\Controllers",
+    "\\CRUD REST API\\Properties",
+    "\\CRUD_REST_API.Business\\DTOs",
+    "\\CRUD_REST_API.Business\\Services",
+    "\\CRUD_REST_API.Business\\Services\\Abstractions",
+    "\\CRUD_REST_API.Business\\Services\\Implementations"
+  ],
+  "SelectedNode": "\\CRUD REST API\\CRUD REST API.csproj",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,6 +1,6 @@
 <Solution>
-  <Project Path="../CRUD_REST_API.Business/CRUD_REST_API.Business.csproj" Id="87b929ae-c369-4afd-ae11-6c884b05d7e0" />
-  <Project Path="../CRUD_REST_API.Core/CRUD_REST_API.Core.csproj" Id="c6efa220-eac2-41ab-b531-cc5ee07b7cd5" />
-  <Project Path="../CRUD_REST_API.DataAccess/CRUD_REST_API.DataAccess.csproj" Id="f75c6e15-237a-4f9a-a74f-50b266f16edc" />
-  <Project Path="CRUD REST API.csproj" />
+  <Project Path="CRUD REST API/CRUD REST API.csproj" />
+  <Project Path="CRUD_REST_API.Business/CRUD_REST_API.Business.csproj" />
+  <Project Path="CRUD_REST_API.Core/CRUD_REST_API.Core.csproj" />
+  <Project Path="CRUD_REST_API.DataAccess/CRUD_REST_API.DataAccess.csproj" />
 </Solution>

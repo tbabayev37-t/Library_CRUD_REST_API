@@ -39,7 +39,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
 
         public async Task<IEnumerable<AuhtorGetDto>> GetAllAsync()
         {
-            var authors = await _authorRepository.GetAllAsync();
+            var authors = await _authorRepository.GetAllAuthorsWithBooksAsync();
             return _mapper.Map<IEnumerable<AuhtorGetDto>>(authors);
         }
 

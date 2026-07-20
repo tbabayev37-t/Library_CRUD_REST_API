@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VGyuAjU8nf8=",
+  "dgSpecHash": "/fQMfPTFPuw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\source\\repos\\CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\source\\repos\\LibraryManagment_REST_API\\CRUD_REST_API.Business\\CRUD_REST_API.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\automapper\\16.2.0\\automapper.16.2.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using CRUD_REST_API.Business.DTOs.BookDto;
 using CRUD_REST_API.Business.Services.Abstractions;
+using CRUD_REST_API.Contexts;
 using CRUD_REST_API.DataAccess.Repositories.Abstractions;
+using CRUD_REST_API.DataAccess.Repositories.Implementations;
 using CRUD_REST_API.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,14 +15,22 @@ namespace CRUD_REST_API.Business.Services.Implementations
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
-        public BookService(IBookRepository bookRepository, IMapper mapper)
+        public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
+            _authorRepository = authorRepository;
         }
         public async Task CreateAsync(BookCreateDto CreateBookDto)
         {
+            var authorExists = await _authorRepository.GetByIdAsync(CreateBookDto.AuthorId);
+
+            if (authorExists == null)
+            {
+                throw new Exception($"Gönderilen ID-li ({CreateBookDto.AuthorId}) yaziçi sistemdə movcud deyil.");
+            }
             var book = _mapper.Map<Book>(CreateBookDto);
             await _bookRepository.AddAsync(book);
             await _bookRepository.SaveAsync();
@@ -35,7 +46,8 @@ namespace CRUD_REST_API.Business.Services.Implementations
 
         public async Task<IEnumerable<BookGetDto>> GetAllAsync()
         {
-            var books = await _bookRepository.GetAllAsync();
+            //var books = await _bookRepository.GetAllAsync();
+            var books = await _bookRepository.GetAllBooksWithAuthorsAsync();
             return _mapper.Map<IEnumerable<BookGetDto>>(books);
         }
 

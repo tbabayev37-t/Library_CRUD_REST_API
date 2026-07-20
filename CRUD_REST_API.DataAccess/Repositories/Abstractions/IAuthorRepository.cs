@@ -8,5 +8,6 @@ namespace CRUD_REST_API.DataAccess.Repositories.Abstractions
 {
     public interface IAuthorRepository:IRepository<Author>
     {
+        Task<IEnumerable<Author>> GetAllAuthorsWithBooksAsync();
     }
 }
