@@ -3,4 +3,5 @@
   <Project Path="CRUD_REST_API.Business/CRUD_REST_API.Business.csproj" />
   <Project Path="CRUD_REST_API.Core/CRUD_REST_API.Core.csproj" />
   <Project Path="CRUD_REST_API.DataAccess/CRUD_REST_API.DataAccess.csproj" />
+  <Project Path="CRUD_REST_API.Tests/CRUD_REST_API.Tests.csproj" Id="d83afdd7-1561-449e-b7bb-f4641a376b1f" />
 </Solution>
