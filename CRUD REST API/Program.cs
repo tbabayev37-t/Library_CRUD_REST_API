@@ -45,6 +45,9 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 
+builder.Services.AddScoped<IJWTService, JWTService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 var app = builder.Build();
 
 app.UseSwagger();

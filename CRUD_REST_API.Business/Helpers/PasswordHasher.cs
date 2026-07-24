@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace CRUD_REST_API.Business.Helpers
 {
     public class PasswordHasher
