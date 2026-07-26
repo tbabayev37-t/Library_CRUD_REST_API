@@ -1,6 +1,7 @@
 ﻿using CRUD_REST_API.Business.DTOs.BookDto;
 using CRUD_REST_API.Business.DTOs.QueryDto;
 using CRUD_REST_API.Business.Services.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace CRUD_REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;

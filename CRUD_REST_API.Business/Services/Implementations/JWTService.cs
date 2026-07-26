@@ -16,7 +16,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
             string secretKey = "GizliKeyGizliKeyGizliKeyGizliKeyGizliKeyGizliKeyGizliKeyGizliKey!";
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
-            var signingCredentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
+            var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var expires = DateTime.UtcNow.AddMinutes(60);
 
@@ -24,11 +24,13 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 issuer: "localhost",
                 audience: "localhost",
                 claims: claims,
-                notBefore: expires
-                );
+                expires: expires, 
+                signingCredentials: signingCredentials 
+            );
 
             var tokenHandler = new JwtSecurityTokenHandler();
             string token = tokenHandler.WriteToken(tokenDescription);
+
             return new()
             {
                 Token = token,

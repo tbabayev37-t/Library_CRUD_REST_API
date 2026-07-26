@@ -2,27 +2,36 @@
 using CRUD_REST_API.Business.DTOs.UserDto;
 using CRUD_REST_API.Business.Helpers;
 using CRUD_REST_API.Business.Services.Abstractions;
+using CRUD_REST_API.Contexts;
 using CRUD_REST_API.Core.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace CRUD_REST_API.Business.Services.Implementations
 {
-    public class AuthService(IJWTService _jWTService) : IAuthService
+    public class AuthService : IAuthService
     {
-        private static readonly List<User> _users = new();
-        
-        public Task RegisterAsync(RegisterDto dto)
+        private readonly AppDbContext _context;
+        private readonly IJWTService _jWTService;
+
+        public AuthService(AppDbContext context, IJWTService jWTService)
         {
-            if(_users.Any(x=>x.Username == dto.Username))
+            _context = context;
+            _jWTService = jWTService;
+        }
+
+        public async Task RegisterAsync(RegisterDto dto)
+        {
+            bool isExist = await _context.Users.AnyAsync(x => x.Username == dto.Username);
+            if (isExist)
             {
-                throw new Exception("Bu istifadeci artiq adi movcuddur!");
+                throw new Exception("Bu istifadəçi adı artıq mövcuddur!");
             }
 
             string hashPassword = PasswordHasher.HashPassword(dto.Password);
-
             var user = new User
             {
                 ID = Guid.NewGuid(),
@@ -32,18 +41,21 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 PasswordHash = hashPassword,
                 Role = "User"
             };
-            _users.Add(user);
-            return Task.CompletedTask;
+
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
+
         public async Task<AccessTokenDto> LoginAsync(LoginDto dto)
         {
-            var user = _users.FirstOrDefault(u=>u.Username == dto.Username);
-            if (user == null) throw new Exception("Istifadeci adi ve ya sifre yanlisdir!");
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == dto.Username);
+            if (user == null)
+                throw new Exception("İstifadəçi adı və ya şifrə yanlışdır!");
 
             bool isPasswordValid = PasswordHasher.VerifyPassword(dto.Password, user.PasswordHash);
-            if(!isPasswordValid)
+            if (!isPasswordValid)
             {
-                throw new Exception("Istifadeci adi ve ya sifre yanlisdir!");
+                throw new Exception("İstifadəçi adı və ya şifrə yanlışdır!");
             }
 
             var claims = new List<Claim>
