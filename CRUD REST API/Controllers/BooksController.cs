@@ -23,6 +23,7 @@ namespace CRUD_REST_API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll([FromQuery] BookQueryParameters queryParams)
         {
             var books = await _bookService.GetAllAsync(queryParams);
@@ -30,6 +31,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore tek bir kitabi getirir. </summary>
         [HttpGet("{id}")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult>GetById(int id)
         {
             var book = await _bookService.GetByIdAsync(id);
@@ -38,6 +40,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni kitab yaradir. </summary>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult>CreateBook(BookCreateDto dto)
         {
                 await _bookService.CreateAsync(dto);
@@ -45,6 +48,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Movcud kitab melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
@@ -53,6 +57,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore kitabi silir. </summary>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult>Delete(int id)
         {
                 await _bookService.DeleteAsync(id);

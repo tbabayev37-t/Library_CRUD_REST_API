@@ -1,6 +1,7 @@
 ﻿using CRUD_REST_API.Business.DTOs.MemberDto;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Business.Services.Implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary>Butun uzvleri gosterir </summary>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var members = await _memberService.GetAllAsync();
@@ -25,6 +27,7 @@ namespace CRUD_REST_API.Controllers
         /// <summary>ID-e gore uzvu gosterir
         /// </summary>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(int id)
         {
                 var member = await _memberService.GetByIdAsync(id);
@@ -32,13 +35,15 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni uzv yaradir. </summary>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(MemberCreateDto dto)
         {
             await _memberService.CreateAsync(dto);
             return Ok(dto);
         }
         /// <summary> Movcud uzv melumatlarini yenileyir. </summary>
-        [HttpPut("{id}")] 
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] MemberUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
@@ -47,6 +52,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore uzvu silir. </summary>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
                 await _memberService.DeleteAsync(id);
