@@ -28,7 +28,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
         public async Task DeleteAsync(int id)
         {
             var deletedMember = await _memberRepository.GetByIdAsync(id);
-            if (deletedMember == null) throw new Exception("Member movcud deyil");
+            if (deletedMember == null) throw new KeyNotFoundException("Member movcud deyil");
             _memberRepository.Delete(deletedMember);
             await _memberRepository.SaveAsync();
         }
@@ -42,14 +42,14 @@ namespace CRUD_REST_API.Business.Services.Implementations
         public async Task<MemberGetDto> GetByIdAsync(int id)
         {
             var findingMember = await _memberRepository.GetByIdAsync(id);
-            if (findingMember == null) throw new Exception("Member tapilmadi!");
+            if (findingMember == null) throw new KeyNotFoundException("Member tapilmadi!");
             return _mapper.Map<MemberGetDto>(findingMember);
         }
 
         public async Task UpdateAsync(MemberUpdateDto UpdateMemberDto)
         {
             var updatedMember = await _memberRepository.GetByIdAsync(UpdateMemberDto.Id);
-            if (updatedMember == null) throw new Exception("Member tapilmadi");
+            if (updatedMember == null) throw new KeyNotFoundException("Member tapilmadi");
             _mapper.Map(UpdateMemberDto,updatedMember);
             _memberRepository.Update(updatedMember);
             await _memberRepository.SaveAsync();

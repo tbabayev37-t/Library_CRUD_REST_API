@@ -23,7 +23,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
             var author = _mapper.Map<Author>(AuthorCreateDto);
             if(author == null)
             {
-                throw new Exception("Invalid input");
+                throw new KeyNotFoundException("Invalid input");
             }
             await _authorRepository.AddAsync(author);
             await _authorRepository.SaveAsync();
@@ -32,7 +32,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
         public async Task DeleteAsync(int id)
         {
             var deletedAuthor = await _authorRepository.GetByIdAsync(id);
-            if (deletedAuthor == null) throw new Exception("Muellif tapilmadi!");
+            if (deletedAuthor == null) throw new KeyNotFoundException("Muellif tapilmadi!");
             _authorRepository.Delete(deletedAuthor);
             await _authorRepository.SaveAsync();
         }
@@ -45,14 +45,14 @@ namespace CRUD_REST_API.Business.Services.Implementations
         public async Task<AuhtorGetDto> GetByIdAsync(int id)
         {
             var FindingAuthor = await _authorRepository.GetByIdAsync(id);
-            if (FindingAuthor == null) throw new Exception("Bu muellif tapilmadi!");
+            if (FindingAuthor == null) throw new KeyNotFoundException("Bu muellif tapilmadi!");
             return _mapper.Map<AuhtorGetDto>(FindingAuthor);
         }
 
         public async Task UpdateAsync(AuthorUpdateDto AuthorUpdateDto)
         {
             var updatedAuthor = await _authorRepository.GetByIdAsync(AuthorUpdateDto.Id);
-            if (updatedAuthor == null) throw new Exception("Muellif tapilmadi!");
+            if (updatedAuthor == null) throw new KeyNotFoundException("Muellif tapilmadi!");
             _mapper.Map(AuthorUpdateDto, updatedAuthor);
             _authorRepository.Update(updatedAuthor);
             await _authorRepository.SaveAsync();

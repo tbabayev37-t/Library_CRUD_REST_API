@@ -30,7 +30,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
 
             if (authorExists == null)
             {
-                throw new Exception($"Gönderilen ID-li ({CreateBookDto.AuthorId}) yaziçi sistemdə movcud deyil.");
+                throw new KeyNotFoundException($"Gönderilen ID-li ({CreateBookDto.AuthorId}) yaziçi sistemdə movcud deyil.");
             }
             var book = _mapper.Map<Book>(CreateBookDto);
             await _bookRepository.AddAsync(book);
@@ -59,14 +59,14 @@ namespace CRUD_REST_API.Business.Services.Implementations
         public async Task<BookGetDto> GetByIdAsync(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
-            if (book is null) throw new Exception("Kitab tapilmadi!");
+            if (book is null) new KeyNotFoundException("Kitab tapilmadi!");
             return _mapper.Map<BookGetDto>(book);
         }
 
         public async Task UpdateAsync(BookUpdateDto UpdateBookDto)
         {
             var existBook = await _bookRepository.GetByIdAsync(UpdateBookDto.Id);
-            if(existBook is null) throw new Exception("Movcud kitab tapilmadi!");
+            if(existBook is null) throw new KeyNotFoundException("Kitab tapilmadi!");
             _mapper.Map(UpdateBookDto, existBook);
             _bookRepository.Update(existBook);
             await _bookRepository.SaveAsync();
