@@ -16,9 +16,10 @@ namespace CRUD_REST_API.DataAccess.Repositories.Implementations
 
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooksWithAuthorsAsync(int pageNumber, int pageSize, string? sortBy, bool isDescending)
+        public async Task<(IEnumerable<Book> Books, int TotalCount)> GetAllBooksWithAuthorsAsync(int pageNumber, int pageSize, string? sortBy, bool isDescending)
         {
-            var query = _context.Books.Include(b=>b.Author).AsQueryable();
+            var query = _context.Books.Include(b => b.Author).AsQueryable();
+
             if (!string.IsNullOrEmpty(sortBy))
             {
                 if (sortBy.Equals("Title", StringComparison.OrdinalIgnoreCase))
@@ -34,8 +35,11 @@ namespace CRUD_REST_API.DataAccess.Repositories.Implementations
             {
                 query = query.OrderBy(b => b.Id);
             }
+
+            var totalCount = await query.CountAsync();
             var books = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return books;
+
+            return (books, totalCount);
         }
     }
 }

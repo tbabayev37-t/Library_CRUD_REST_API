@@ -1,13 +1,12 @@
 ﻿using CRUD_REST_API.DataAccess.Repositories.Abstractions.Generic;
 using CRUD_REST_API.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace CRUD_REST_API.DataAccess.Repositories.Abstractions
 {
-    public interface IBookRepository:IRepository<Book>
+    public interface IBookRepository : IRepository<Book>
     {
-        Task<IEnumerable<Book>> GetAllBooksWithAuthorsAsync(int pageNumber, int pageSize, string? sortBy, bool isDescending);
+        Task<(IEnumerable<Book> Books, int TotalCount)> GetAllBooksWithAuthorsAsync(int pageNumber, int pageSize, string? sortBy, bool isDescending);
     }
 }

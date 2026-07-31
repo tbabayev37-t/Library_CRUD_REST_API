@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CRUD_REST_API.Business")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7304173019efb926455b1800a26f2a2d19f14b67")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f83928b0b759954e9e9fbe739433c25d4d616616")]
 [assembly: System.Reflection.AssemblyProductAttribute("CRUD_REST_API.Business")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CRUD_REST_API.Business")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

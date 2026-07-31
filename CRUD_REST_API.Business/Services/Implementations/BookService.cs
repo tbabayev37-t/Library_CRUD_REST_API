@@ -18,12 +18,14 @@ namespace CRUD_REST_API.Business.Services.Implementations
         private readonly IBookRepository _bookRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
+
         public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
             _authorRepository = authorRepository;
         }
+
         public async Task CreateAsync(BookCreateDto CreateBookDto)
         {
             var authorExists = await _authorRepository.GetByIdAsync(CreateBookDto.AuthorId);
@@ -45,32 +47,40 @@ namespace CRUD_REST_API.Business.Services.Implementations
             await _bookRepository.SaveAsync();
         }
 
-        public async Task<IEnumerable<BookGetDto>> GetAllAsync(BookQueryParameters queryParams)
+        public async Task<PagedResultDto<BookGetDto>> GetAllAsync(BookQueryParameters queryParams)
         {
-            var books = await _bookRepository.GetAllBooksWithAuthorsAsync(
-        queryParams.PageNumber,
-        queryParams.PageSize,
-        queryParams.SortBy,
-        queryParams.IsDescending
-         );
+            var (books, totalCount) = await _bookRepository.GetAllBooksWithAuthorsAsync(
+                queryParams.PageNumber,
+                queryParams.PageSize,
+                queryParams.SortBy,
+                queryParams.IsDescending
+            );
 
-            return _mapper.Map<IEnumerable<BookGetDto>>(books);
+            var bookDtos = _mapper.Map<IEnumerable<BookGetDto>>(books);
+
+            return new PagedResultDto<BookGetDto>
+            {
+                Items = bookDtos,
+                TotalCount = totalCount,
+                PageNumber = queryParams.PageNumber,
+                PageSize = queryParams.PageSize
+            };
         }
+
         public async Task<BookGetDto> GetByIdAsync(int id)
         {
             var book = await _bookRepository.GetByIdAsync(id);
-            if (book is null) new KeyNotFoundException("Kitab tapilmadi!");
+            if (book is null) throw new KeyNotFoundException("Kitab tapilmadi!");
             return _mapper.Map<BookGetDto>(book);
         }
 
         public async Task UpdateAsync(BookUpdateDto UpdateBookDto)
         {
             var existBook = await _bookRepository.GetByIdAsync(UpdateBookDto.Id);
-            if(existBook is null) throw new KeyNotFoundException("Kitab tapilmadi!");
+            if (existBook is null) throw new KeyNotFoundException("Kitab tapilmadi!");
             _mapper.Map(UpdateBookDto, existBook);
             _bookRepository.Update(existBook);
             await _bookRepository.SaveAsync();
-
         }
     }
 }
