@@ -2,12 +2,17 @@ using AutoMapper;
 using CRUD_REST_API.Business.Profiles;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Business.Services.Implementations;
+using CRUD_REST_API.Business.Validators.AuthorValidator;
+using CRUD_REST_API.Business.Validators.BookValidator;
+using CRUD_REST_API.Business.Validators.MemberValidator;
 using CRUD_REST_API.Contexts;
 using CRUD_REST_API.DataAccess.Repositories.Abstractions;
 using CRUD_REST_API.DataAccess.Repositories.Abstractions.Generic;
 using CRUD_REST_API.DataAccess.Repositories.Implementations;
 using CRUD_REST_API.DataAccess.Repositories.Implementations.Generic;
 using CRUD_REST_API.Middlewares;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -15,6 +20,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<BookCreateDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<BookUpdateDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AuthorCreateValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AuthorUpdateValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<MemberCreateValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<MemberUpdateValidator>();
+
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
