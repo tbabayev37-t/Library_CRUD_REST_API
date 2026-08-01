@@ -1,4 +1,5 @@
-﻿using CRUD_REST_API.Models;
+﻿using CRUD_REST_API.Core.Models;
+using CRUD_REST_API.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -18,7 +19,10 @@ namespace CRUD_REST_API.Contexts
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Member> Members { get; set; }
-
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<BookCategory> BookCategories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         
 
     }
