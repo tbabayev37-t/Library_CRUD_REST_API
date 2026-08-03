@@ -13,7 +13,8 @@ namespace CRUD_REST_API.Business.Profiles
         {
             CreateMap<Book, BookCreateDto>().ReverseMap();            
             CreateMap<Book, BookUpdateDto>().ReverseMap();
-            CreateMap<Book, BookGetDto>().ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.Name)).ReverseMap();
+            CreateMap<Book, BookGetDto>().ForMember(dest => dest.AuthorName, opt => opt
+            .MapFrom(src => src.Author.Name)).ReverseMap();
         }
     }
 }

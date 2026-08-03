@@ -42,12 +42,13 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
-
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<AuthorProfile>();
     cfg.AddProfile<BookProfile>();
     cfg.AddProfile<MemberProfile>();
+    cfg.AddProfile<CategoryProfile>();
+    cfg.AddProfile<OrderProfile>();
 });
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

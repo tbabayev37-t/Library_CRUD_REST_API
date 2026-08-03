@@ -23,6 +23,11 @@ namespace CRUD_REST_API.Business.Services.Implementations
         }
         public async Task CreateAsync(CategoryCreateDto categoryCreateDto)
         {
+            var isExist = await _categoryRepository.IsCategoryNameExistAsync(categoryCreateDto.Name);
+            if (isExist)
+            {
+                throw new ArgumentException($"'{categoryCreateDto.Name} named category already exists in the system.!");
+            }
             var category = _mapper.Map<Category>(categoryCreateDto);
             await _categoryRepository.AddAsync(category);
             await _categoryRepository.SaveAsync();

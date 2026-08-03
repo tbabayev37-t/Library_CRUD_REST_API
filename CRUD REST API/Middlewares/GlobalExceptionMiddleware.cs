@@ -28,14 +28,20 @@ namespace CRUD_REST_API.Middlewares
             {
                 KeyNotFoundException => HttpStatusCode.NotFound,      // 404
                 ArgumentException => HttpStatusCode.BadRequest,       // 400
-                _ => HttpStatusCode.InternalServerError               // 500
+                UnauthorizedAccessException => HttpStatusCode.Unauthorized, // 401
+                _ => HttpStatusCode.InternalServerError
             };
             context.Response.StatusCode = (int)statusCode;
 
+            string errorMessage = exception switch
+            {
+                AutoMapper.AutoMapperMappingException => "Sistemdə mapping konfiqurasiyası tapılmadı.",
+                _ => exception.Message
+            };
             var response = new
             {
                 statusCode = context.Response.StatusCode,
-                message = exception.Message,
+                message = errorMessage,
                 detailed = exception.InnerException?.Message
             };
 
