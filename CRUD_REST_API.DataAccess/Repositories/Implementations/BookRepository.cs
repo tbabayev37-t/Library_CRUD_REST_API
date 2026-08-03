@@ -5,7 +5,8 @@ using CRUD_REST_API.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CRUD_REST_API.DataAccess.Repositories.Implementations
 {
@@ -16,32 +17,6 @@ namespace CRUD_REST_API.DataAccess.Repositories.Implementations
 
         }
 
-        public async Task<(IEnumerable<Book> Books, int TotalCount)> GetAllBooksWithAuthorsAsync(int pageNumber, int pageSize, string? sortBy, bool isDescending)
-        {
-            var query = _context.Books.Include(b => b.Author).AsQueryable();
-
-            if (!string.IsNullOrEmpty(sortBy))
-            {
-                if (sortBy.Equals("Title", StringComparison.OrdinalIgnoreCase))
-                {
-                    query = isDescending ? query.OrderByDescending(b => b.Title) : query.OrderBy(b => b.Title);
-                }
-                else if (sortBy.Equals("PublishedYear", StringComparison.OrdinalIgnoreCase))
-                {
-                    query = isDescending ? query.OrderByDescending(b => b.PublishedYear) : query.OrderBy(b => b.PublishedYear);
-                }
-            }
-            else
-            {
-                query = query.OrderBy(b => b.Id);
-            }
-
-            var totalCount = await query.CountAsync();
-            var books = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            return (books, totalCount);
-        }
-
         public async Task<(IEnumerable<Book> Books, int TotalCount)> GetAllBooksWithAuthorsAsync(
             int pageNumber,
             int pageSize,
@@ -50,7 +25,6 @@ namespace CRUD_REST_API.DataAccess.Repositories.Implementations
             string? searchTerm = null,
             decimal? minPrice = null,
             decimal? maxPrice = null)
-
         {
             var query = _context.Books.Include(b => b.Author).AsQueryable();
 

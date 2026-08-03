@@ -7,7 +7,6 @@ namespace CRUD_REST_API.DataAccess.Repositories.Abstractions
 {
     public interface IBookRepository : IRepository<Book>
     {
-        Task<(IEnumerable<Book> Books, int TotalCount)> GetAllBooksWithAuthorsAsync(int pageNumber, int pageSize, string? sortBy, bool isDescending);
 
         Task<(IEnumerable<Book> Books, int TotalCount)> GetAllBooksWithAuthorsAsync(
           int pageNumber,

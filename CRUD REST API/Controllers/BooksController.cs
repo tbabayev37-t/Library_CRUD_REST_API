@@ -54,8 +54,17 @@ namespace CRUD_REST_API.Controllers
         public async Task<IActionResult>Delete(int id)
         {
                 await _bookService.DeleteAsync(id);
-                return NoContent();//204 No Content
-            
+                return NoContent();//204 No Content       
+        }
+        /// <summary>
+        /// Dinamik axtarış, filtrləmə, sıralama və səhifələmə endpoint-i.
+        /// </summary>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> DynamicSearch([FromQuery] BookQueryParameters queryParams)
+        {
+            var result = await _bookService.GetAllAsync(queryParams);
+            return Ok(result);
         }
     }
 }
