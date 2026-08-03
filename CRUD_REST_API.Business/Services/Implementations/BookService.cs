@@ -53,7 +53,10 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 queryParams.PageNumber,
                 queryParams.PageSize,
                 queryParams.SortBy,
-                queryParams.IsDescending
+                queryParams.IsDescending,
+                queryParams.SearchTerm,
+                queryParams.MinPrice,
+                queryParams.MaxPrice
             );
 
             var bookDtos = _mapper.Map<IEnumerable<BookGetDto>>(books);
@@ -82,5 +85,6 @@ namespace CRUD_REST_API.Business.Services.Implementations
             _bookRepository.Update(existBook);
             await _bookRepository.SaveAsync();
         }
+
     }
 }

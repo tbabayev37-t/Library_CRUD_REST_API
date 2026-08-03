@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CRUD_REST_API.Core.Models;
+using CRUD_REST_API.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
