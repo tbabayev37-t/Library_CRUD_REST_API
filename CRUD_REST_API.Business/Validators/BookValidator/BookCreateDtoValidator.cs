@@ -25,6 +25,10 @@ namespace CRUD_REST_API.Business.Validators.BookValidator
 
             RuleFor(x => x.AuthorId)
                 .GreaterThan(0).WithMessage("Muellif ID-si duzgun secilmelidir!");
+
+            RuleFor(x => x.Price)
+                .GreaterThan(0).WithMessage("Qiymet 0-dan boyuk olmalidir!")
+                .When(x => x.Price.HasValue);
         }
     }
 }
