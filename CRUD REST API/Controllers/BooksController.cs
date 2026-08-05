@@ -66,5 +66,25 @@ namespace CRUD_REST_API.Controllers
             var result = await _bookService.GetAllAsync(queryParams);
             return Ok(result);
         }
+        /// <summary>
+        /// Transaksiya ile create endpoint-i.
+        /// </summary>
+        [HttpPost("create-with-transaction")]
+        public async Task<IActionResult> CreateWithTransaction([FromBody] BookCreateDto dto)
+        {
+            try
+            {
+                var result = await _bookService.CreateBookWithAuthorLogAsync(dto);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

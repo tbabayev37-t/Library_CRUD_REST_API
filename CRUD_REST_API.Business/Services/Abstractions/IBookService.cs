@@ -13,5 +13,6 @@ namespace CRUD_REST_API.Business.Services.Abstractions
         Task CreateAsync(BookCreateDto CreateBookDto);
         Task UpdateAsync(BookUpdateDto UpdateBookDto);
         Task DeleteAsync(int id);
+        Task<bool> CreateBookWithAuthorLogAsync(BookCreateDto dto);
     }
 }
