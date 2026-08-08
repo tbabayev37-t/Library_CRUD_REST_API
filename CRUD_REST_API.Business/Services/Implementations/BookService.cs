@@ -7,6 +7,7 @@ using CRUD_REST_API.DataAccess.Repositories.Abstractions;
 using CRUD_REST_API.DataAccess.Repositories.Implementations;
 using CRUD_REST_API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,12 +20,14 @@ namespace CRUD_REST_API.Business.Services.Implementations
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
         private readonly AppDbContext _context;
-        public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository, AppDbContext context)
+        private readonly IMemoryCache _cache;
+        public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository, AppDbContext context,IMemoryCache cache)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
             _authorRepository = authorRepository;
             _context = context;
+            _cache = cache;
         }
 
         public async Task CreateAsync(BookCreateDto CreateBookDto)
@@ -73,9 +76,22 @@ namespace CRUD_REST_API.Business.Services.Implementations
 
         public async Task<BookGetDto> GetByIdAsync(int id)
         {
+            string cachedKey = $"book_{id}";
+            if(_cache.TryGetValue(cachedKey, out BookGetDto bookGetDto))
+            {
+                return bookGetDto;
+            }
             var book = await _bookRepository.GetByIdAsync(id);
             if (book is null) throw new KeyNotFoundException("Kitab tapilmadi!");
-            return _mapper.Map<BookGetDto>(book);
+
+            var bookDto = _mapper.Map<BookGetDto>(book);
+
+            var cacheOptions = new MemoryCacheEntryOptions()
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
+                .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+
+            _cache.Set(cachedKey,bookDto, cacheOptions);
+            return bookDto;
         }
 
         public async Task UpdateAsync(BookUpdateDto UpdateBookDto)

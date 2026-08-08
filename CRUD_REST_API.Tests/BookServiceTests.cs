@@ -5,6 +5,7 @@ using CRUD_REST_API.Contexts;
 using CRUD_REST_API.DataAccess.Repositories.Abstractions;
 using CRUD_REST_API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace CRUD_REST_API.Tests
         private readonly Mock<IAuthorRepository> _mockAuthorRepo;
         private readonly Mock<IMapper> _mockMapper;
         private readonly AppDbContext _context;
+        private readonly IMemoryCache _memoryCache;
         private readonly BookService _bookService;
 
         public BookServiceTests()
@@ -27,6 +29,7 @@ namespace CRUD_REST_API.Tests
             _mockAuthorRepo = new Mock<IAuthorRepository>();
             _mockMapper = new Mock<IMapper>();
 
+            _memoryCache = new MemoryCache(new MemoryCacheOptions());
             // SQL Server paketi layihədə zatən olduğu üçün UseSqlServer istifadə olunur
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TestDb_ForRollback;Trusted_Connection=True;")
@@ -38,7 +41,8 @@ namespace CRUD_REST_API.Tests
                 _mockBookRepo.Object,
                 _mockMapper.Object,
                 _mockAuthorRepo.Object,
-                _context
+                _context,
+                _memoryCache
             );
         }
 

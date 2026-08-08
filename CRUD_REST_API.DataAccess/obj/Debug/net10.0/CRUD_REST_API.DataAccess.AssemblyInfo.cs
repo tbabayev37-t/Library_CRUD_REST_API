@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CRUD_REST_API.DataAccess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+365c16109c9daafca4b26559f4ca025ec82f53ba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e5c47db777e201a21bff364168246802694bad9")]
 [assembly: System.Reflection.AssemblyProductAttribute("CRUD_REST_API.DataAccess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CRUD_REST_API.DataAccess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

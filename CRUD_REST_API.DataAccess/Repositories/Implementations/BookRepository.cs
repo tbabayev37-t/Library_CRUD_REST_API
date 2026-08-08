@@ -70,5 +70,11 @@ namespace CRUD_REST_API.DataAccess.Repositories.Implementations
 
             return (books, totalCount);
         }
+        public async Task<Book?> GetByIdAsync(int id)
+{
+    return await _context.Books
+        .Include(b => b.Author) // Müəllif məlumatını da qoşuruq
+        .FirstOrDefaultAsync(b => b.Id == id);
+}
     }
 }
