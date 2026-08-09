@@ -1,4 +1,5 @@
 using AutoMapper;
+using CRUD_REST_API.Business.BackgroundServices;
 using CRUD_REST_API.Business.Profiles;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Business.Services.Implementations;
@@ -66,6 +67,8 @@ builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IFileService, FileService>();
+
+builder.Services.AddHostedService<FileCleanupBackgroundService>();
 
 var app = builder.Build();
 
