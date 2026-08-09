@@ -65,6 +65,7 @@ builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 var app = builder.Build();
 
@@ -75,7 +76,7 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "swagger";
 });
 app.UseMiddleware<GlobalExceptionMiddleware>();
-
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

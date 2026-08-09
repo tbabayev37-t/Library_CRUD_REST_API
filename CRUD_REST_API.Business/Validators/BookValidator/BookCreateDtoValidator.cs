@@ -29,6 +29,9 @@ namespace CRUD_REST_API.Business.Validators.BookValidator
             RuleFor(x => x.Price)
                 .GreaterThan(0).WithMessage("Qiymet 0-dan boyuk olmalidir!")
                 .When(x => x.Price.HasValue);
+
+            RuleFor(x => x.ImageUrl)
+                .MaximumLength(500).WithMessage("Sekil unvani cox uzundur!");
         }
     }
 }

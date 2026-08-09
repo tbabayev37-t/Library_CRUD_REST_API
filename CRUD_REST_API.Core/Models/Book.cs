@@ -8,6 +8,7 @@
         public int PublishedYear { get; set; }
         public int AuthorId {  get; set; }
         public decimal? Price { get; set; }
+        public string? ImageUrl {  get; set; }
         public Author Author { get; set; } = null!;
         public ICollection<BookCategory> BookCategories { get; set; } = [];
     }
