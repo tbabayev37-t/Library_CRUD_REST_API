@@ -11,9 +11,11 @@ namespace CRUD_REST_API.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
-        public BooksController(IBookService bookService)
+        private readonly IEmailService _emailService;
+        public BooksController(IBookService bookService, IEmailService emailService)
         {
             _bookService = bookService;
+            _emailService = emailService;
         }
         /// <summary>
         /// Butun kitablarin siyahısını sehifeleme və siralama ile getirir.
@@ -36,10 +38,21 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni kitab yaradir. </summary>
         [HttpPost]
-        public async Task<IActionResult>CreateBook(BookCreateDto dto)
+        public async Task<IActionResult> CreateBook(BookCreateDto dto)
         {
-                await _bookService.CreateAsync(dto);
-                return StatusCode(StatusCodes.Status201Created);
+            // 1. Kitab bazaya asinxron şəkildə əlavə olunur
+            await _bookService.CreateAsync(dto);
+
+            // 2. Kitab yarandıqdan sonra arxa fonda bildiriş e-poçtu göndərilir (Non-blocking / Fire-and-Forget)
+            // 'await' yazılmadığı üçün HTTP sorğusu bu əməliyyatın bitməsini gözləmir.
+            _ = Task.Run(() => _emailService.SendEmailAsync(
+                "admin@library.com",
+                "Yeni Kitab Bildirisi",
+                $"Sisteme yeni kitab elave olundu: {dto.Title}"
+            ));
+
+            // 3. İstifadəçiyə dərhal 201 Created status kodu qaytarılır
+            return StatusCode(StatusCodes.Status201Created);
         }
         /// <summary> Movcud kitab melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
@@ -86,5 +99,6 @@ namespace CRUD_REST_API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        
     }
 }

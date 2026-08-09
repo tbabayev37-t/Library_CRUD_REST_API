@@ -67,6 +67,7 @@ builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddHostedService<FileCleanupBackgroundService>();
 
