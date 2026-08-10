@@ -9,6 +9,7 @@ using CRUD_REST_API.DataAccess.Repositories.Implementations;
 using CRUD_REST_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
@@ -24,16 +25,19 @@ namespace CRUD_REST_API.Business.Services.Implementations
         private readonly IMapper _mapper;
         private readonly AppDbContext _context;
         private readonly IMemoryCache _cache;
+        private readonly IConfiguration _configuration;
 
         // Bütün siyahı keçlərini bir toxunuşla sıfırlamaq üçün Token Source
         private static CancellationTokenSource _resetCacheToken = new CancellationTokenSource();
-        public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository, AppDbContext context,IMemoryCache cache)
+        public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository, 
+            AppDbContext context,IMemoryCache cache, IConfiguration configuration)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
             _authorRepository = authorRepository;
             _context = context;
             _cache = cache;
+            _configuration = configuration;
         }
 
         private void InvalidateAllBooksCache()
@@ -42,6 +46,15 @@ namespace CRUD_REST_API.Business.Services.Implementations
             _resetCacheToken.Cancel();
             _resetCacheToken.Dispose();
             _resetCacheToken = new CancellationTokenSource();
+        }
+        private MemoryCacheEntryOptions GetCacheOptions()
+        {
+            int absoluteExpiration = int.Parse(_configuration["CacheSettings:AbsoluteExpirationInMinutes"] ?? "5");
+            int slidingExpiration = int.Parse(_configuration["CacheSettings:SlidingExpirationInMinutes"] ?? "2");
+
+            return new MemoryCacheEntryOptions()
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(absoluteExpiration))
+                .SetSlidingExpiration(TimeSpan.FromMinutes(slidingExpiration));
         }
         public async Task CreateAsync(BookCreateDto CreateBookDto)
         {
@@ -98,10 +111,8 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 PageNumber = queryParams.PageNumber,
                 PageSize = queryParams.PageSize
             };
-            var cacheOptions = new MemoryCacheEntryOptions()
-                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
-                 .SetSlidingExpiration(TimeSpan.FromMinutes(2))
-                 .AddExpirationToken(new CancellationChangeToken(_resetCacheToken.Token));
+            var cacheOptions = GetCacheOptions()
+               .AddExpirationToken(new CancellationChangeToken(_resetCacheToken.Token));
 
             _cache.Set(cacheKey, result, cacheOptions);
 
@@ -120,9 +131,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
 
             var bookDto = _mapper.Map<BookGetDto>(book);
 
-            var cacheOptions = new MemoryCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
-                .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+            var cacheOptions = GetCacheOptions();
             //Cache invalidation
             _cache.Set(cachedKey,bookDto, cacheOptions);
             return bookDto;
