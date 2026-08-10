@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CRUD_REST_API.Business.Constants;
 using CRUD_REST_API.Business.DTOs.BookDto;
 using CRUD_REST_API.Business.DTOs.QueryDto;
 using CRUD_REST_API.Business.Services.Abstractions;
@@ -8,8 +9,10 @@ using CRUD_REST_API.DataAccess.Repositories.Implementations;
 using CRUD_REST_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace CRUD_REST_API.Business.Services.Implementations
@@ -21,6 +24,9 @@ namespace CRUD_REST_API.Business.Services.Implementations
         private readonly IMapper _mapper;
         private readonly AppDbContext _context;
         private readonly IMemoryCache _cache;
+
+        // Bütün siyahı keçlərini bir toxunuşla sıfırlamaq üçün Token Source
+        private static CancellationTokenSource _resetCacheToken = new CancellationTokenSource();
         public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository, AppDbContext context,IMemoryCache cache)
         {
             _bookRepository = bookRepository;
@@ -30,6 +36,13 @@ namespace CRUD_REST_API.Business.Services.Implementations
             _cache = cache;
         }
 
+        private void InvalidateAllBooksCache()
+        {
+            // Köhnə token-i ləğv edirik
+            _resetCacheToken.Cancel();
+            _resetCacheToken.Dispose();
+            _resetCacheToken = new CancellationTokenSource();
+        }
         public async Task CreateAsync(BookCreateDto CreateBookDto)
         {
             var authorExists = await _authorRepository.GetByIdAsync(CreateBookDto.AuthorId);
@@ -41,6 +54,9 @@ namespace CRUD_REST_API.Business.Services.Implementations
             var book = _mapper.Map<Book>(CreateBookDto);
             await _bookRepository.AddAsync(book);
             await _bookRepository.SaveAsync();
+
+            // Yeni kitab yarandıqda ümumi siyahı keçərsiz olur
+            InvalidateAllBooksCache();
         }
 
         public async Task DeleteAsync(int id)
@@ -49,10 +65,20 @@ namespace CRUD_REST_API.Business.Services.Implementations
             if (deletedBook == null) return;
             _bookRepository.Delete(deletedBook);
             await _bookRepository.SaveAsync();
+            //Cache invalidation
+            _cache.Remove(CacheKeys.BookById(id));
+            InvalidateAllBooksCache();
         }
 
         public async Task<PagedResultDto<BookGetDto>> GetAllAsync(BookQueryParameters queryParams)
         {
+            string cacheKey = $"books_p{queryParams.PageNumber}_s{queryParams.PageSize}_sort{queryParams.SortBy}_{queryParams.IsDescending}_search{queryParams.SearchTerm}_min{queryParams.MinPrice}_max{queryParams.MaxPrice}";
+
+            // 2. Keşdə bu xüsusi filtr üçün nəticə var?
+            if (_cache.TryGetValue(cacheKey, out PagedResultDto<BookGetDto> cachedBooks))
+            {
+                return cachedBooks;
+            }
             var (books, totalCount) = await _bookRepository.GetAllBooksWithAuthorsAsync(
                 queryParams.PageNumber,
                 queryParams.PageSize,
@@ -65,19 +91,27 @@ namespace CRUD_REST_API.Business.Services.Implementations
 
             var bookDtos = _mapper.Map<IEnumerable<BookGetDto>>(books);
 
-            return new PagedResultDto<BookGetDto>
+            var result = new PagedResultDto<BookGetDto>
             {
                 Items = bookDtos,
                 TotalCount = totalCount,
                 PageNumber = queryParams.PageNumber,
                 PageSize = queryParams.PageSize
             };
+            var cacheOptions = new MemoryCacheEntryOptions()
+                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
+                 .SetSlidingExpiration(TimeSpan.FromMinutes(2))
+                 .AddExpirationToken(new CancellationChangeToken(_resetCacheToken.Token));
+
+            _cache.Set(cacheKey, result, cacheOptions);
+
+            return result;
         }
 
         public async Task<BookGetDto> GetByIdAsync(int id)
         {
-            string cachedKey = $"book_{id}";
-            if(_cache.TryGetValue(cachedKey, out BookGetDto bookGetDto))
+            string cachedKey = CacheKeys.BookById(id);
+            if (_cache.TryGetValue(cachedKey, out BookGetDto bookGetDto))
             {
                 return bookGetDto;
             }
@@ -89,7 +123,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
             var cacheOptions = new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
                 .SetSlidingExpiration(TimeSpan.FromMinutes(2));
-
+            //Cache invalidation
             _cache.Set(cachedKey,bookDto, cacheOptions);
             return bookDto;
         }
@@ -101,6 +135,10 @@ namespace CRUD_REST_API.Business.Services.Implementations
             _mapper.Map(UpdateBookDto, existBook);
             _bookRepository.Update(existBook);
             await _bookRepository.SaveAsync();
+            //Cache invalidation
+            _cache.Remove(CacheKeys.BookById(UpdateBookDto.Id));
+            InvalidateAllBooksCache();
+
         }
         public async Task<bool> CreateBookWithAuthorLogAsync(BookCreateDto dto)
         {
@@ -132,8 +170,12 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 _context.Authors.Update(author);
                 await _context.SaveChangesAsync();
 
+
                 // Her iki cedvele yazma ugurludursa transaction tesdiqlenir
                 await transaction.CommitAsync();
+
+                // Bütün siyahı keslərini sıfırlayırıq
+                InvalidateAllBooksCache();
                 return true;
             }
             catch (Exception)
