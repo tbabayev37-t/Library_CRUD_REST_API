@@ -19,6 +19,8 @@ namespace CRUD_REST_API.Controllers
         /// Butun muelliflerin siyahisini gosterir.
         /// </summary>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll()
         {
             var authors = await _authorService.GetAllAsync();
@@ -26,6 +28,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore tek bir muellifi getirir. </summary>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>GetById(int id)
         {
                 var author = await _authorService.GetByIdAsync(id);
@@ -33,6 +37,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni muellif yaradir. </summary>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult>Create(AuthorCreateDto dto)
         {
             await _authorService.CreateAsync(dto);
@@ -40,6 +46,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore muellifi silir. </summary>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>Delete(int id)
         {
                 await _authorService.DeleteAsync(id);
@@ -48,6 +56,9 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Movcud muellif melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] AuthorUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });

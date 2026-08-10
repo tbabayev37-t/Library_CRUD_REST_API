@@ -14,7 +14,15 @@ namespace CRUD_REST_API.Controllers
         {
             _fileService = fileService;
         }
+        /// <summary>
+        /// Servere yeni fayl yukleyir.
+        /// </summary>
+        /// <param name="file">Yuklenecek fayl</param>
+        /// <param name="folderName">Qovluq adi (susmaya göre: books)</param>
+        /// <returns>Yuklenmis faylin kecidi (URL)</returns>
         [HttpPost("upload")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Upload(IFormFile file, [FromQuery] string folderName = "books")
         {
             try
@@ -27,7 +35,16 @@ namespace CRUD_REST_API.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+        /// <summary>
+        /// Gosterilen fayli serverden endirir.
+        /// </summary>
+        /// <param name="fileName">Endirilecek faylin adi</param>
+        /// <param name="folderName">Qovluq adi (susmaya göre: books)</param>
+        /// <returns>Fayl axini (File Stream)</returns>
         [HttpGet("download/{fileName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Download(string fileName, [FromQuery] string folderName = "books")
         {
             try

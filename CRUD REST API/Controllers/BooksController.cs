@@ -30,6 +30,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore tek bir kitabi getirir. </summary>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>GetById(int id)
         {
             var book = await _bookService.GetByIdAsync(id);
@@ -38,6 +40,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni kitab yaradir. </summary>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateBook(BookCreateDto dto)
         {
             // 1. Kitab bazaya asinxron şəkildə əlavə olunur
@@ -56,6 +60,9 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Movcud kitab melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
@@ -64,6 +71,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore kitabi silir. </summary>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>Delete(int id)
         {
                 await _bookService.DeleteAsync(id);
@@ -83,6 +92,8 @@ namespace CRUD_REST_API.Controllers
         /// Transaksiya ile create endpoint-i.
         /// </summary>
         [HttpPost("create-with-transaction")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateWithTransaction([FromBody] BookCreateDto dto)
         {
             try

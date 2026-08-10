@@ -17,6 +17,8 @@ namespace CRUD_REST_API.Controllers
         }
         ///<summary>Butun sifarisleri gosterir</summary>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAllOrder()
         {
             var order = await _orderService.GetAllAsync();
@@ -24,6 +26,8 @@ namespace CRUD_REST_API.Controllers
         }
         ///<summary>Yeni sifaris yaradir</summary>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateOrder([FromBody] OrderCreateDto orderCreateDto)
         {
             await _orderService.CreateAsync(orderCreateDto);
@@ -31,6 +35,8 @@ namespace CRUD_REST_API.Controllers
         }
         ///<summary>ID-e gore sifarisleri gosterir</summary>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>GetOrderById(int id)
         {
             var order = await _orderService.GetByIdAsync(id);
@@ -38,6 +44,9 @@ namespace CRUD_REST_API.Controllers
         }
         ///<summary>Sifarisi yenileyir</summary>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateOrder(int id, [FromBody] OrderUpdateDto orderDto)
         {
             if (id != orderDto.Id)
@@ -48,6 +57,8 @@ namespace CRUD_REST_API.Controllers
         }
         ///<summary>ID-e gore sifarisi silir</summary>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult>DeleteOrder(int id)
         {
             await _orderService.DeleteAsync(id);

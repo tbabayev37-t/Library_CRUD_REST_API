@@ -17,6 +17,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary>Butun uzvleri gosterir </summary>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll()
         {
             var members = await _memberService.GetAllAsync();
@@ -25,6 +27,8 @@ namespace CRUD_REST_API.Controllers
         /// <summary>ID-e gore uzvu gosterir
         /// </summary>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
                 var member = await _memberService.GetByIdAsync(id);
@@ -32,13 +36,18 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni uzv yaradir. </summary>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(MemberCreateDto dto)
         {
             await _memberService.CreateAsync(dto);
             return Ok(dto);
         }
         /// <summary> Movcud uzv melumatlarini yenileyir. </summary>
-        [HttpPut("{id}")] 
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] MemberUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
@@ -47,6 +56,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore uzvu silir. </summary>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
                 await _memberService.DeleteAsync(id);
