@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+
 namespace CRUD_REST_API.Middlewares
 {
     public class GlobalExceptionMiddleware
@@ -9,6 +10,7 @@ namespace CRUD_REST_API.Middlewares
         {
             _next = next;
         }
+
         public async Task InvokeAsync(HttpContext context)
         {
             try
@@ -20,16 +22,29 @@ namespace CRUD_REST_API.Middlewares
                 await HandleExceptionAsync(context, ex);
             }
         }
+
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
 
             var statusCode = exception switch
             {
-                KeyNotFoundException => HttpStatusCode.NotFound,      // 404
-                ArgumentException => HttpStatusCode.BadRequest,       // 400
-                _ => HttpStatusCode.InternalServerError               // 500
+                // Register zamanı istifadəçi mövcuddursa (400)
+                InvalidOperationException => HttpStatusCode.BadRequest,
+
+                // Argument xətaları üçün (400)
+                ArgumentException => HttpStatusCode.BadRequest,
+
+                // Login zamanı şifrə yanlış olduqda (401)
+                UnauthorizedAccessException => HttpStatusCode.Unauthorized,
+
+                // Login zamanı istifadəçi tapılmadıqda (404)
+                KeyNotFoundException => HttpStatusCode.NotFound,
+
+                // Digər gözlənilməyən xətalar üçün (500)
+                _ => HttpStatusCode.InternalServerError
             };
+
             context.Response.StatusCode = (int)statusCode;
 
             var response = new

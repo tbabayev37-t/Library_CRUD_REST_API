@@ -29,7 +29,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
             bool isExist = await _context.Users.AnyAsync(x => x.Username == dto.Username);
             if (isExist)
             {
-                throw new Exception("Bu istifadəçi adı artıq mövcuddur!");
+                throw new InvalidOperationException("Bu istifadəçi adı artıq mövcuddur!");
             }
 
             string hashPassword = PasswordHasher.HashPassword(dto.Password);
@@ -51,12 +51,12 @@ namespace CRUD_REST_API.Business.Services.Implementations
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == dto.Username);
             if (user == null)
-                throw new Exception("İstifadəçi adı və ya şifrə yanlışdır!");
+                throw new UnauthorizedAccessException("İstifadəçi adı və ya şifrə yanlışdır!");
 
             bool isPasswordValid = PasswordHasher.VerifyPassword(dto.Password, user.PasswordHash);
             if (!isPasswordValid)
             {
-                throw new Exception("İstifadəçi adı və ya şifrə yanlışdır!");
+                throw new UnauthorizedAccessException("İstifadəçi adı və ya şifrə yanlışdır!");
             }
 
             var claims = new List<Claim>
