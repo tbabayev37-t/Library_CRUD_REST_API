@@ -29,7 +29,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
             bool isExist = await _context.Users.AnyAsync(x => x.Username == dto.Username);
             if (isExist)
             {
-                throw new InvalidOperationException("Bu istifadəçi adı artıq mövcuddur!");
+                throw new ArgumentException("Bu istifadəçi adı artıq mövcuddur!");
             }
 
             string hashPassword = PasswordHasher.HashPassword(dto.Password);

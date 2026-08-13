@@ -30,8 +30,6 @@ namespace CRUD_REST_API.Middlewares
             var statusCode = exception switch
             {
                 // Register zamanı istifadəçi mövcuddursa (400)
-                InvalidOperationException => HttpStatusCode.BadRequest,
-
                 // Argument xətaları üçün (400)
                 ArgumentException => HttpStatusCode.BadRequest,
 
