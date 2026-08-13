@@ -21,9 +21,9 @@ namespace CRUD_REST_API.Controllers
         /// Butun kitablarin siyahısını sehifeleme və siralama ile getirir.
         /// </summary>
         [HttpGet]
+        [Authorize(Roles = "User,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [AllowAnonymous]
         public async Task<IActionResult> GetAll([FromQuery] BookQueryParameters queryParams)
         {
             var books = await _bookService.GetAllAsync(queryParams);
@@ -31,7 +31,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore tek bir kitabi getirir. </summary>
         [HttpGet("{id}")]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult>GetById(int id)
         {
             var book = await _bookService.GetByIdAsync(id);

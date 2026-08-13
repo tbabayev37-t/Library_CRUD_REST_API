@@ -9,6 +9,7 @@ namespace CRUD_REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthorsController : ControllerBase
     {
         private readonly IAuthorService _authorService;
@@ -20,7 +21,9 @@ namespace CRUD_REST_API.Controllers
         /// Butun muelliflerin siyahisini gosterir.
         /// </summary>
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "User,Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll()
         {
             var authors = await _authorService.GetAllAsync();
@@ -28,7 +31,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore tek bir muellifi getirir. </summary>
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult>GetById(int id)
         {
                 var author = await _authorService.GetByIdAsync(id);

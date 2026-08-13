@@ -9,6 +9,7 @@ namespace CRUD_REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MembersController : ControllerBase
     {
         private readonly IMemberService _memberService;
@@ -18,7 +19,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary>Butun uzvleri gosterir </summary>
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetAll()
         {
             var members = await _memberService.GetAllAsync();
@@ -27,7 +28,7 @@ namespace CRUD_REST_API.Controllers
         /// <summary>ID-e gore uzvu gosterir
         /// </summary>
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetById(int id)
         {
                 var member = await _memberService.GetByIdAsync(id);
