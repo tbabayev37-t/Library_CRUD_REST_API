@@ -3,6 +3,7 @@ using CRUD_REST_API.Business.DTOs.UserDto;
 using CRUD_REST_API.Business.Helpers;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Contexts;
+using CRUD_REST_API.Core.Enums;
 using CRUD_REST_API.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -39,7 +40,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 Username = dto.Username,
                 Email = dto.Email,
                 PasswordHash = hashPassword,
-                Role = "User"
+                Role = UserRole.User
             };
 
             await _context.Users.AddAsync(user);
@@ -63,7 +64,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             return _jWTService.CreateAccessToken(claims);

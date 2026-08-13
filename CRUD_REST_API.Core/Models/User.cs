@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRUD_REST_API.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,6 +12,6 @@ namespace CRUD_REST_API.Core.Models
         public string Username { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
-        public string Role { get; set; } = "USER";
+        public UserRole Role { get; set; } = UserRole.User;
     }
 }

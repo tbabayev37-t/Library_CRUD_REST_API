@@ -50,7 +50,7 @@ namespace CRUD_REST_API.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("CRUD_REST_API.Models.Author", b =>
@@ -73,7 +73,7 @@ namespace CRUD_REST_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("CRUD_REST_API.Models.Book", b =>
@@ -104,7 +104,7 @@ namespace CRUD_REST_API.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("CRUD_REST_API.Models.Member", b =>
@@ -135,7 +135,7 @@ namespace CRUD_REST_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Members");
+                    b.ToTable("Members", (string)null);
                 });
 
             modelBuilder.Entity("CRUD_REST_API.Models.Book", b =>
