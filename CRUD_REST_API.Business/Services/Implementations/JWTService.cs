@@ -1,5 +1,6 @@
 ﻿using CRUD_REST_API.Business.DTOs.TokenDto;
 using CRUD_REST_API.Business.Services.Abstractions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,17 @@ namespace CRUD_REST_API.Business.Services.Implementations
 {
     public class JWTService : IJWTService
     {
+        private readonly IConfiguration _configuration;
+
+        // Configuration enjekte (inject) olunur
+        public JWTService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         public AccessTokenDto CreateAccessToken(List<Claim> claims)
         {
-            string secretKey = "GizliKeyGizliKeyGizliKeyGizliKeyGizliKeyGizliKeyGizliKeyGizliKey!";
+            var jwtSettings = _configuration.GetSection("Jwt");
+            string secretKey = jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key tapılmadı!");
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
             var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -21,11 +30,11 @@ namespace CRUD_REST_API.Business.Services.Implementations
             var expires = DateTime.UtcNow.AddMinutes(60);
 
             var tokenDescription = new JwtSecurityToken(
-                issuer: "localhost",
-                audience: "localhost",
+                issuer: jwtSettings["Issuer"],
+                audience: jwtSettings["Audience"],
                 claims: claims,
-                expires: expires, 
-                signingCredentials: signingCredentials 
+                expires: expires,
+                signingCredentials: signingCredentials
             );
 
             var tokenHandler = new JwtSecurityTokenHandler();
