@@ -1,4 +1,5 @@
-﻿using CRUD_REST_API.Business.DTOs.MemberDto;
+﻿using CRUD_REST_API.Business.DTOs.CategoryDto;
+using CRUD_REST_API.Business.DTOs.MemberDto;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Business.Services.Implementations;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,8 @@ namespace CRUD_REST_API.Controllers
         /// <summary>Butun uzvleri gosterir </summary>
         [HttpGet]
         [Authorize(Roles = "User,Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll()
         {
             var members = await _memberService.GetAllAsync();
@@ -29,6 +32,8 @@ namespace CRUD_REST_API.Controllers
         /// </summary>
         [HttpGet("{id}")]
         [Authorize(Roles = "User,Admin")]
+        [ProducesResponseType(typeof(MemberGetDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
                 var member = await _memberService.GetByIdAsync(id);
@@ -37,6 +42,8 @@ namespace CRUD_REST_API.Controllers
         /// <summary> Yeni uzv yaradir. </summary>
         [HttpPost]
         [Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(MemberCreateDto dto)
         {
             await _memberService.CreateAsync(dto);
@@ -45,6 +52,9 @@ namespace CRUD_REST_API.Controllers
         /// <summary> Movcud uzv melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(int id, [FromBody] MemberUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
@@ -54,6 +64,8 @@ namespace CRUD_REST_API.Controllers
         /// <summary> ID-e gore uzvu silir. </summary>
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
                 await _memberService.DeleteAsync(id);
