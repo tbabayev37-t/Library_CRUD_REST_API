@@ -5,6 +5,7 @@ using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Contexts;
 using CRUD_REST_API.Core.Enums;
 using CRUD_REST_API.Core.Models;
+using CRUD_REST_API.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace CRUD_REST_API.Business.Services.Implementations
             }
 
             string hashPassword = PasswordHasher.HashPassword(dto.Password);
-            var user = new User
+            var user = new CRUD_REST_API.Core.Models.User
             {
                 ID = Guid.NewGuid(),
                 Fullname = dto.Fullname,
@@ -62,8 +63,8 @@ namespace CRUD_REST_API.Business.Services.Implementations
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.ID.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Username ?? string.Empty),
+                new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 

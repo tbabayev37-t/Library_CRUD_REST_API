@@ -47,10 +47,10 @@ namespace CRUD_REST_API.Tests
         {
             // Arrange
             int bookId = 1;
-            var fakeBook = new Book { Id = bookId, Title = "Test Kitab", Genre = "Badii", PublishedYear = 2020 };
-            var fakeDto = new BookGetDto { Id = bookId, Title = "Test Kitab", Genre = "Badii", PublishedYear = 2020 };
+            var fakeBook = new Book { Id = bookId, Title = "Test Kitab", PublishedYear = 2020 };
+            var fakeDto = new BookGetDto { Id = bookId, Title = "Test Kitab", PublishedYear = 2020 };
 
-            _mockBookRepo.Setup(repo => repo.GetByIdAsync(bookId)).ReturnsAsync(fakeBook);
+            _mockBookRepo.Setup(repo => repo.GetBookWithDetailsAsync(bookId)).ReturnsAsync(fakeBook);
             _mockMapper.Setup(m => m.Map<BookGetDto>(fakeBook)).Returns(fakeDto);
 
             // Act
@@ -108,7 +108,6 @@ namespace CRUD_REST_API.Tests
             var dto = new BookCreateDto
             {
                 Title = "Rollback Test Kitab",
-                Genre = "Test",
                 PublishedYear = 2026,
                 Price = 15,
                 AuthorId = 999 // Bazada olmayan müəllif ID-si

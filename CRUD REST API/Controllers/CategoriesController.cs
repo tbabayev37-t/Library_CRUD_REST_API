@@ -16,14 +16,14 @@ namespace CRUD_REST_API.Controllers
         {
             _categoryService = categoryService;            
         }
-        /// <summary>Butun uzvleri gosterir </summary>
+        /// <summary>Butun kateqoriyalari gosterir </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _categoryService.GetAllAsync();
             return Ok(categories);
         }
-        /// <summary>ID-e gore uzvu gosterir
+        /// <summary>ID-e gore kateqoriyani gosterir
         /// </summary>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById(int id)
