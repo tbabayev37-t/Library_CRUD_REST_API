@@ -61,8 +61,37 @@ namespace CRUD_REST_API.Controllers
         public async Task<IActionResult>Delete(int id)
         {
                 await _bookService.DeleteAsync(id);
-                return NoContent();//204 No Content
-            
+                return NoContent();//204 No Content       
+        }
+        /// <summary>
+        /// Dinamik axtarış, filtrləmə, sıralama və səhifələmə endpoint-i.
+        /// </summary>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> DynamicSearch([FromQuery] BookQueryParameters queryParams)
+        {
+            var result = await _bookService.GetAllAsync(queryParams);
+            return Ok(result);
+        }
+        /// <summary>
+        /// Transaksiya ile create endpoint-i.
+        /// </summary>
+        [HttpPost("create-with-transaction")]
+        public async Task<IActionResult> CreateWithTransaction([FromBody] BookCreateDto dto)
+        {
+            try
+            {
+                var result = await _bookService.CreateBookWithAuthorLogAsync(dto);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

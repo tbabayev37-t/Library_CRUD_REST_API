@@ -11,6 +11,7 @@ namespace CRUD_REST_API.Configurations
             builder.Property(x => x.Title).IsRequired().HasMaxLength(150);
             builder.Property(x => x.Genre).IsRequired().HasMaxLength(50);
             builder.Property(x => x.PublishedYear).IsRequired();
+            builder.Property(x => x.Price).HasColumnType("decimal(18,2)").IsRequired(false);
             builder.HasOne(b => b.Author).WithMany(x => x.Books).HasForeignKey(x => x.AuthorId).OnDelete(DeleteBehavior.Cascade);
         }
     }

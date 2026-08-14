@@ -18,12 +18,13 @@ namespace CRUD_REST_API.Business.Services.Implementations
         private readonly IBookRepository _bookRepository;
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
-
-        public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository)
+        private readonly AppDbContext _context;
+        public BookService(IBookRepository bookRepository, IMapper mapper, IAuthorRepository authorRepository, AppDbContext context)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
             _authorRepository = authorRepository;
+            _context = context;
         }
 
         public async Task CreateAsync(BookCreateDto CreateBookDto)
@@ -53,7 +54,10 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 queryParams.PageNumber,
                 queryParams.PageSize,
                 queryParams.SortBy,
-                queryParams.IsDescending
+                queryParams.IsDescending,
+                queryParams.SearchTerm,
+                queryParams.MinPrice,
+                queryParams.MaxPrice
             );
 
             var bookDtos = _mapper.Map<IEnumerable<BookGetDto>>(books);
@@ -82,5 +86,47 @@ namespace CRUD_REST_API.Business.Services.Implementations
             _bookRepository.Update(existBook);
             await _bookRepository.SaveAsync();
         }
+        public async Task<bool> CreateBookWithAuthorLogAsync(BookCreateDto dto)
+        {
+            var author = await _context.Authors.FindAsync(dto.AuthorId);
+            if (author == null)
+            {
+                throw new KeyNotFoundException($"Göndərilən ID-li ({dto.AuthorId}) müəllif sistemdə mövcud deyil.");
+            }
+            // Transaction-i basladiriq
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                // 1-ci cedvele yazma: Yeni Book yaradilir
+                var book = new Book
+                {
+                    Title = dto.Title,
+                    Genre = dto.Genre,
+                    PublishedYear = dto.PublishedYear,
+                    Price = dto.Price,
+                    AuthorId = dto.AuthorId
+                };
+                await _context.Books.AddAsync(book);
+                await _context.SaveChangesAsync();
+
+                // 2-ci cedvele yazma: Author məlumati yenilenir
+
+                author.Name = author.Name.Trim();
+                _context.Authors.Update(author);
+                await _context.SaveChangesAsync();
+
+                // Her iki cedvele yazma ugurludursa transaction tesdiqlenir
+                await transaction.CommitAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                // Iki emeliyatdan birinde xeta olarsa, butun desyishiklikler geri alinir
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+
     }
 }

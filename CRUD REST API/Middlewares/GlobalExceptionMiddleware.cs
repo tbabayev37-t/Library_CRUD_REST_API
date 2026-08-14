@@ -29,26 +29,23 @@ namespace CRUD_REST_API.Middlewares
 
             var statusCode = exception switch
             {
-                // Register zamanı istifadəçi mövcuddursa (400)
-                // Argument xətaları üçün (400)
-                ArgumentException => HttpStatusCode.BadRequest,
-
-                // Login zamanı şifrə yanlış olduqda (401)
-                UnauthorizedAccessException => HttpStatusCode.Unauthorized,
-
-                // Login zamanı istifadəçi tapılmadıqda (404)
-                KeyNotFoundException => HttpStatusCode.NotFound,
-
-                // Digər gözlənilməyən xətalar üçün (500)
+                KeyNotFoundException => HttpStatusCode.NotFound,      // 404
+                ArgumentException => HttpStatusCode.BadRequest,       // 400
+                UnauthorizedAccessException => HttpStatusCode.Unauthorized, // 401
                 _ => HttpStatusCode.InternalServerError
             };
 
             context.Response.StatusCode = (int)statusCode;
 
+            string errorMessage = exception switch
+            {
+                AutoMapper.AutoMapperMappingException => "Sistemdə mapping konfiqurasiyası tapılmadı.",
+                _ => exception.Message
+            };
             var response = new
             {
                 statusCode = context.Response.StatusCode,
-                message = exception.Message,
+                message = errorMessage,
                 detailed = exception.InnerException?.Message
             };
 
