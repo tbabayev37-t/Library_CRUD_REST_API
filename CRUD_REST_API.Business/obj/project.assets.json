@@ -56,17 +56,13 @@
           }
         }
       },
-      "FluentValidation/12.1.1": {
+      "BCrypt.Net-Next/4.2.0": {
         "type": "package",
         "compile": {
-          "lib/net8.0/FluentValidation.dll": {
-            "related": ".xml"
-          }
+          "lib/net10.0/BCrypt-Net-Next.dll": {}
         },
         "runtime": {
-          "lib/net8.0/FluentValidation.dll": {
-            "related": ".xml"
-          }
+          "lib/net10.0/BCrypt-Net-Next.dll": {}
         }
       },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
@@ -807,19 +803,29 @@
         "lib/netstandard2.0/Azure.Identity.xml"
       ]
     },
-    "FluentValidation/12.1.1": {
-      "sha512": "EPpkIe1yh1a0OXyC100oOA8WMbZvqUu5plwhvYcb7oSELfyUZzfxV48BLhvs3kKo4NwG7MGLNgy1RJiYtT8Dpw==",
+    "BCrypt.Net-Next/4.2.0": {
+      "sha512": "gwLD2KfCuwQesP17aVh4h6lpiMPEVt5Lbpndo0ej903hNUUTtyxt3ARdDjmuydBRTAUICc7OVKVbaOvc6SQYXA==",
       "type": "package",
-      "path": "fluentvalidation/12.1.1",
+      "path": "bcrypt.net-next/4.2.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
-        "fluent-validation-icon.png",
-        "fluentvalidation.12.1.1.nupkg.sha512",
-        "fluentvalidation.nuspec",
-        "lib/net8.0/FluentValidation.dll",
-        "lib/net8.0/FluentValidation.xml"
+        "bcrypt.net-next.4.2.0.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "ico.png",
+        "lib/net10.0/BCrypt-Net-Next.dll",
+        "lib/net10.0/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt-Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt-Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt-Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt-Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt-Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
@@ -1781,6 +1787,7 @@
   "projectFileDependencyGroups": {
     "net10.0": [
       "AutoMapper >= 16.2.0",
+      "BCrypt.Net-Next >= 4.2.0",
       "CRUD_REST_API.Core >= 1.0.0",
       "CRUD_REST_API.DataAccess >= 1.0.0",
       "FluentValidation >= 12.1.1"
@@ -1839,7 +1846,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.300"
+      "SdkAnalysisLevel": "10.0.400"
     },
     "frameworks": {
       "net10.0": {
@@ -1850,9 +1857,9 @@
             "target": "Package",
             "version": "[16.2.0, )"
           },
-          "FluentValidation": {
+          "BCrypt.Net-Next": {
             "target": "Package",
-            "version": "[12.1.1, )"
+            "version": "[4.2.0, )"
           }
         },
         "imports": [
@@ -1871,7 +1878,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

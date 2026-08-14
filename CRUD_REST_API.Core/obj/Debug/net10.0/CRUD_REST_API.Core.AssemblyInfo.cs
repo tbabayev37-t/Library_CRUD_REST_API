@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CRUD_REST_API.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a627453125ffface17ffa2204c044d8206878bca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2b3b54eb184464ce8d3eef41646c95f54e02f1b")]
 [assembly: System.Reflection.AssemblyProductAttribute("CRUD_REST_API.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CRUD_REST_API.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

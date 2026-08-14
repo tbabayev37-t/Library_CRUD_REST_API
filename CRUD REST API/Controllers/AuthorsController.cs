@@ -1,6 +1,7 @@
 ﻿using CRUD_REST_API.Business.DTOs.AuthorDto;
 using CRUD_REST_API.Business.Services.Abstractions;
 using CRUD_REST_API.Business.Services.Implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace CRUD_REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthorsController : ControllerBase
     {
         private readonly IAuthorService _authorService;
@@ -19,6 +21,9 @@ namespace CRUD_REST_API.Controllers
         /// Butun muelliflerin siyahisini gosterir.
         /// </summary>
         [HttpGet]
+        [Authorize(Roles = "User,Admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll()
         {
             var authors = await _authorService.GetAllAsync();
@@ -26,6 +31,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore tek bir muellifi getirir. </summary>
         [HttpGet("{id}")]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult>GetById(int id)
         {
                 var author = await _authorService.GetByIdAsync(id);
@@ -33,6 +39,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni muellif yaradir. </summary>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult>Create(AuthorCreateDto dto)
         {
             await _authorService.CreateAsync(dto);
@@ -40,6 +47,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore muellifi silir. </summary>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult>Delete(int id)
         {
                 await _authorService.DeleteAsync(id);
@@ -48,6 +56,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Movcud muellif melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] AuthorUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
