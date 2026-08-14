@@ -1,18 +1,20 @@
-# Library Management REST API
+# Library Management REST API - Week 2 (Authentication & Authorization)
 
-Bu layihə kitabxana idarəetmə sistemi üçün N-Tier (Çoxlaylı) arxitekturasına uyğun hazırlanmış **ASP.NET Core RESTful API** layihəsidir.
+Bu layihə kitabxana idarəetmə sistemi üçün təhlükəsizlik, istifadəçi autentifikasiyası və rol əsaslı avtorizasiya mexanizmlərinin tətbiq olunduğu **ASP.NET Core RESTful API** mərhələsidir.
 
 ## 🛠 Texnologiyalar və Kitabxanalar
-- **Framework:** .NET 8 / 10 (ASP.NET Core Web API)
-- **Architecture:** N-Tier Architecture (API, Business, Core, DataAccess, Models)
-- **ORM:** Entity Framework Core
-- **Database:** Microsoft SQL Server
-- **Documentation:** Swagger UI / OpenAPI (XML documentation dəstəyi ilə)
-- **Testing:** xUnit & Moq (Unit Testing)
-- **Mapper:** AutoMapper
 
-## 📌 Xüsusiyyətlər
-- **CRUD Əməliyyatları:** Kitablar (Books) və Müəlliflər (Authors) üzərində tam yaratmaq, oxumaq, yeniləmək və silmək imkanı.
-- **Pagination & Sorting:** Kitabların siyahılanmasında səhifələmə və çeşidləmə dəstəyi.
-- **Global Exception Handling:** Xətaların vahid mərkəzdən tutulması və standart JSON formatında qaytarılması.
-- **Fluent Validation:** DTO-lar üçün təhlükəsiz doğrulama qaydaları.
+* **Authentication & Authorization:** JWT (JSON Web Tokens), ASP.NET Core Bearer Authentication
+* **Password Hashing:** BCrypt.Net-Next
+* **Documentation:** Swagger UI / OpenAPI (Bearer Token dəstəyi ilə)
+* **Architecture:** N-Tier Architecture (API, Business, Core, DataAccess)
+* **ORM & Database:** Entity Framework Core & SQL Server
+* **Mapper:** AutoMapper
+
+## 📌 Həftə 2 Xüsusiyyətləri
+
+* **User Entity & Secure Password Hashing:** İstifadəçi məlumatlarının idarə olunması və şifrələrin bazada heç bir halda plain-text saxlanılmadan BCrypt alqoritmi vasitəsilə hash-lənməsi.
+* **JWT Authentication:** `Register` və `Login` endpoint-ləri vasitəsilə təhlükəsiz giriş və sistemə sorğu göndərmək üçün JWT Access Token verilməsi.
+* **Role-Based Access Control (RBAC):** `User` və `Admin` rollarına əsasən resurslara girişin məhdudlaşdırılması (`[Authorize(Roles = "Admin")]`).
+* **Proper Status Codes Handling:** Anonim sorğular üçün `401 Unauthorized`, kifayət qədər rolu olmayan istifadəçilər üçün `403 Forbidden` status kodlarının qaytarılması.
+* **Token Expiration & Validation:** JWT Token-ə müəyyən ömür təyin olunması və `ValidateLifetime` vasitəsilə vaxtı bitmiş tokenlərin avtomatik bloklanması.

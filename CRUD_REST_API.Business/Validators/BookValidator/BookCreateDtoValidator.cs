@@ -15,8 +15,8 @@ namespace CRUD_REST_API.Business.Validators.BookValidator
                 .NotEmpty().WithMessage("Basliq yazilmalidir!")
                 .MaximumLength(100).WithMessage("Kitab adi cox uzundur!");
 
-            RuleFor(x => x.Genre)
-                .NotEmpty().WithMessage("Janr mutleq olmalidir!");
+          /*  RuleFor(x => x.Genre)
+                .NotEmpty().WithMessage("Janr mutleq olmalidir!");*/
 
             RuleFor(x => x.PublishedYear)
                 .GreaterThan(0).WithMessage("Nesr ili duzgun qeyd olunmayib")

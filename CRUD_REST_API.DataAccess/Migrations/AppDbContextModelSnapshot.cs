@@ -102,6 +102,37 @@ namespace CRUD_REST_API.Migrations
                     b.ToTable("OrderItems");
                 });
 
+            modelBuilder.Entity("CRUD_REST_API.Core.Models.User", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("CRUD_REST_API.Models.Author", b =>
                 {
                     b.Property<int>("Id")
@@ -135,15 +166,6 @@ namespace CRUD_REST_API.Migrations
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");

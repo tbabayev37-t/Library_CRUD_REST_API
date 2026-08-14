@@ -58,11 +58,23 @@ namespace CRUD_REST_API.Business.Services.Implementations
         }
         public async Task CreateAsync(BookCreateDto CreateBookDto)
         {
+
             var authorExists = await _authorRepository.GetByIdAsync(CreateBookDto.AuthorId);
 
             if (authorExists == null)
             {
                 throw new KeyNotFoundException($"Gönderilen ID-li ({CreateBookDto.AuthorId}) yaziçi sistemdə movcud deyil.");
+            }
+            if (CreateBookDto.CategoryIds != null && CreateBookDto.CategoryIds.Any())
+            {
+                var existingCategoriesCount = await _context.Categories
+                    .Where(c => CreateBookDto.CategoryIds.Contains(c.Id))
+                    .CountAsync();
+
+                if (existingCategoriesCount != CreateBookDto.CategoryIds.Distinct().Count())
+                {
+                    throw new KeyNotFoundException("Daxil edilən kateqoriyalardan biri və ya bir neçəsi bazada tapılmadı!");
+                }
             }
             var book = _mapper.Map<Book>(CreateBookDto);
             await _bookRepository.AddAsync(book);
@@ -121,26 +133,28 @@ namespace CRUD_REST_API.Business.Services.Implementations
 
         public async Task<BookGetDto> GetByIdAsync(int id)
         {
-            string cachedKey = CacheKeys.BookById(id);
-            if (_cache.TryGetValue(cachedKey, out BookGetDto bookGetDto))
-            {
-                return bookGetDto;
-            }
-            var book = await _bookRepository.GetByIdAsync(id);
+            var book = await _bookRepository.GetBookWithDetailsAsync(id);
+
             if (book is null) throw new KeyNotFoundException("Kitab tapilmadi!");
 
-            var bookDto = _mapper.Map<BookGetDto>(book);
-
-            var cacheOptions = GetCacheOptions();
-            //Cache invalidation
-            _cache.Set(cachedKey,bookDto, cacheOptions);
-            return bookDto;
+            return _mapper.Map<BookGetDto>(book);
         }
 
         public async Task UpdateAsync(BookUpdateDto UpdateBookDto)
         {
             var existBook = await _bookRepository.GetByIdAsync(UpdateBookDto.Id);
             if (existBook is null) throw new KeyNotFoundException("Kitab tapilmadi!");
+            if (UpdateBookDto.CategoryIds != null && UpdateBookDto.CategoryIds.Any())
+            {
+                var existingCategoriesCount = await _context.Categories
+                    .Where(c => UpdateBookDto.CategoryIds.Contains(c.Id))
+                    .CountAsync();
+
+                if (existingCategoriesCount != UpdateBookDto.CategoryIds.Distinct().Count())
+                {
+                    throw new KeyNotFoundException("Daxil edilən kateqoriyalardan biri və ya bir neçəsi bazada tapılmadı!");
+                }
+            }
             _mapper.Map(UpdateBookDto, existBook);
             _bookRepository.Update(existBook);
             await _bookRepository.SaveAsync();
@@ -165,7 +179,6 @@ namespace CRUD_REST_API.Business.Services.Implementations
                 var book = new Book
                 {
                     Title = dto.Title,
-                    Genre = dto.Genre,
                     PublishedYear = dto.PublishedYear,
                     Price = dto.Price,
                     AuthorId = dto.AuthorId

@@ -16,5 +16,6 @@ namespace CRUD_REST_API.DataAccess.Repositories.Abstractions
           string? searchTerm = null,
           decimal? minPrice = null,
           decimal? maxPrice = null);
+        Task<Book?> GetBookWithDetailsAsync(int id);
     }
 }

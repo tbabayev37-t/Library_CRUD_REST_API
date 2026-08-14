@@ -26,14 +26,18 @@ namespace CRUD_REST_API.DataAccess.Repositories.Implementations
             decimal? minPrice = null,
             decimal? maxPrice = null)
         {
-            var query = _context.Books.Include(b => b.Author).AsQueryable();
+            var query = _context.Books
+              .Include(b => b.Author)
+              .Include(b => b.BookCategories)
+              .ThenInclude(bc => bc.Category)
+              .AsQueryable();
 
             // 1. SearchTerm üzrə filtrləmə 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 var term = searchTerm.Trim().ToLower();
                 query = query.Where(b => b.Title.ToLower().Contains(term) ||
-                                         (b.Genre != null && b.Genre.ToLower().Contains(term)));
+                                         b.BookCategories.Any(bc => bc.Category.Name.ToLower().Contains(term)));
             }
 
             // 2. Minimum qiymət üzrə filtrləmə
@@ -70,11 +74,13 @@ namespace CRUD_REST_API.DataAccess.Repositories.Implementations
 
             return (books, totalCount);
         }
-        public async Task<Book?> GetByIdAsync(int id)
-{
-    return await _context.Books
-        .Include(b => b.Author) // Müəllif məlumatını da qoşuruq
-        .FirstOrDefaultAsync(b => b.Id == id);
-}
+        public async Task<Book?> GetBookWithDetailsAsync(int id)
+        {
+            return await _context.Books
+                .Include(b => b.Author)
+                .Include(b => b.BookCategories)
+                    .ThenInclude(bc => bc.Category)
+                .FirstOrDefaultAsync(b => b.Id == id);
+        }
     }
 }

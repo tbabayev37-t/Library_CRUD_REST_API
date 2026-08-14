@@ -1,6 +1,7 @@
 ﻿using CRUD_REST_API.Business.DTOs.BookDto;
 using CRUD_REST_API.Business.DTOs.QueryDto;
 using CRUD_REST_API.Business.Services.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace CRUD_REST_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
@@ -21,6 +23,7 @@ namespace CRUD_REST_API.Controllers
         /// Butun kitablarin siyahısını sehifeleme və siralama ile getirir.
         /// </summary>
         [HttpGet]
+        [Authorize(Roles = "User,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll([FromQuery] BookQueryParameters queryParams)
@@ -30,8 +33,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore tek bir kitabi getirir. </summary>
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "User,Admin")]
         public async Task<IActionResult>GetById(int id)
         {
             var book = await _bookService.GetByIdAsync(id);
@@ -40,9 +42,8 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Yeni kitab yaradir. </summary>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateBook(BookCreateDto dto)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult>CreateBook(BookCreateDto dto)
         {
             // 1. Kitab bazaya asinxron şəkildə əlavə olunur
             await _bookService.CreateAsync(dto);
@@ -60,9 +61,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> Movcud kitab melumatlarini yenileyir. </summary>
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, [FromBody] BookUpdateDto dto)
         {
             if (id != dto.Id) return BadRequest(new { message = "ID-ler ust-uste dusmur!" });
@@ -71,8 +70,7 @@ namespace CRUD_REST_API.Controllers
         }
         /// <summary> ID-e gore kitabi silir. </summary>
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult>Delete(int id)
         {
                 await _bookService.DeleteAsync(id);

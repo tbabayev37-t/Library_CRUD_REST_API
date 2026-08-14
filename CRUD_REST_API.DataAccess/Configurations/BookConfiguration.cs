@@ -9,7 +9,6 @@ namespace CRUD_REST_API.Configurations
         public void Configure(EntityTypeBuilder<Book> builder)
         {
             builder.Property(x => x.Title).IsRequired().HasMaxLength(150);
-            builder.Property(x => x.Genre).IsRequired().HasMaxLength(50);
             builder.Property(x => x.PublishedYear).IsRequired();
             builder.Property(x => x.Price).HasColumnType("decimal(18,2)").IsRequired(false);
             builder.Property(x=>x.ImageUrl).HasMaxLength(500).IsRequired(false);

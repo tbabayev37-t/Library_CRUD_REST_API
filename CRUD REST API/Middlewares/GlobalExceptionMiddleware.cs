@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
+
 namespace CRUD_REST_API.Middlewares
 {
     public class GlobalExceptionMiddleware
@@ -9,6 +10,7 @@ namespace CRUD_REST_API.Middlewares
         {
             _next = next;
         }
+
         public async Task InvokeAsync(HttpContext context)
         {
             try
@@ -20,6 +22,7 @@ namespace CRUD_REST_API.Middlewares
                 await HandleExceptionAsync(context, ex);
             }
         }
+
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
@@ -31,6 +34,7 @@ namespace CRUD_REST_API.Middlewares
                 UnauthorizedAccessException => HttpStatusCode.Unauthorized, // 401
                 _ => HttpStatusCode.InternalServerError
             };
+
             context.Response.StatusCode = (int)statusCode;
 
             string errorMessage = exception switch
