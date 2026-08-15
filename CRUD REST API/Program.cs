@@ -104,7 +104,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Week-2 JWT Authentication Configuration
 var jwtSettings = builder.Configuration.GetSection("Jwt");
-var secretKey = jwtSettings["Key"] ?? "GizliKeyGizliKeyGizliKeyGizliKeyGizliKeyGizliKey!";
+var secretKey = jwtSettings["Key"]
+    ?? throw new InvalidOperationException("JWT Secret Key appsettings.json faylında tapılmadı!");
 
 builder.Services.AddAuthentication(options =>
 {
