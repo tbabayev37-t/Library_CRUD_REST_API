@@ -1,6 +1,6 @@
 # 📚 Library Management System — RESTful Web API
 
-A robust, enterprise-grade **Library Management System Web API** built with **C#** and **.NET Core**. Designed following **N-Layer (Clean) Architecture** principles, this production-ready backend project incorporates advanced concepts including authentication, dynamic querying, performance optimization, and automated testing.
+A robust, enterprise-grade **Library Management System Web API** built with **C#** and **.NET 10**. Designed following **N-Layer (Clean) Architecture** principles, this production-ready backend project incorporates advanced concepts including authentication, dynamic querying, performance optimization, and automated testing.
 
 ---
 
@@ -35,7 +35,7 @@ A robust, enterprise-grade **Library Management System Web API** built with **C#
 
 ## 🛠️ Tech Stack & Tools
 
-* **Language:** C# 12 / .NET Core
+* **Language:** C# 12 / .NET 10
 * **Database:** MS SQL Server
 * **ORM:** Entity Framework Core
 * **Security:** JWT Authentication, BCrypt Password Hashing
